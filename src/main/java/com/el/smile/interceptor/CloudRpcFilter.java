@@ -1,5 +1,7 @@
 package com.el.smile.interceptor;
 
+import com.alibaba.dubbo.common.Constants;
+import com.alibaba.dubbo.common.extension.Activate;
 import com.alibaba.dubbo.rpc.*;
 import com.el.smile.config.ApplicationConstants;
 import com.el.smile.util.TraceIdUtil;
@@ -12,6 +14,7 @@ import org.springframework.util.StringUtils;
  *
  * @author eddie
  */
+@Activate(group = { Constants.PROVIDER })
 public class CloudRpcFilter implements Filter {
 
     @Override
