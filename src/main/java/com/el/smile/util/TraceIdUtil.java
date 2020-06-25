@@ -1,6 +1,7 @@
 package com.el.smile.util;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 /**
@@ -10,10 +11,13 @@ import java.util.UUID;
  */
 public class TraceIdUtil {
 
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     public static String getTraceId(){
         String uuid = UUID.randomUUID().toString().replace("-", "");
-        Date data = new Date();
-        return uuid.concat(data.toString());
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String localDate = DATE_TIME_FORMATTER.format(localDateTime);
+        return uuid.concat(localDate);
     }
 
 }
