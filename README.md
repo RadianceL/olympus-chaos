@@ -1,6 +1,6 @@
 # smile-boot-starter
 
-<div align="center">
+<div>
   <img src="https://img.shields.io/badge/%F0%9F%93%85%20Last%20update%20-%20March%2012%202020-green.svg" alt="Last update: March, 2020">
   <img src="https://img.shields.io/badge/%E2%9C%94%20Spring%20Boot%20Version%20-%202.3.1.RELEASE-brightgreen.svg" alt="Spring Boot Version 2.3.1.RELEASE">
 </div>
