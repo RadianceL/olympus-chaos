@@ -23,7 +23,7 @@ public class ApplicationEnvironmentRunner implements ApplicationRunner {
     private String applicationName;
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
         if (StringUtils.isEmpty(activeEnv) || StringUtils.isEmpty(applicationName)) {
             return;
         }

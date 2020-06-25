@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 public class BaseTraceInterceptor implements HandlerInterceptor {
 
     @Override
-    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws Exception {
+    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
         String tradeId = request.getHeader(ApplicationConstants.HEADER_TRACE_ID);
         if (StringUtils.isEmpty(tradeId)) {
             tradeId = TraceIdUtil.getTraceId();

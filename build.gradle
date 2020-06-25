@@ -4,21 +4,49 @@ plugins {
     id 'java'
 }
 
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
 group = 'com.el'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
+
+jar.enabled=true
+task sourcesJar (type:Jar) {
+    archiveClassifier = 'sources'
+}
+jar.dependsOn(sourcesJar)
+
+def getReleaseRepositoryUrl() {
+    return hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL : ""
+}
+
+def getSnapshotRepositoryUrl() {
+    return hasProperty('SNAPSHOT_REPOSITORY_URL') ? SNAPSHOT_REPOSITORY_URL : ""
+}
+
+def isReleaseBuild() {
+    return project.version.contains("SNAPSHOT") == false
+}
+
+def getRepositoryUsername() {
+    return hasProperty('aliYunUserName') ? aliYunUserName : ""
+}
+
+def getRepositoryPassword() {
+    return hasProperty('aliYunPassword') ? aliYunPassword : ""
+}
+
+artifacts {
+    archives sourcesJar
+}
 
 ext {
     set('springCloudVersion', "Hoxton.SR5")
 }
 
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
-
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
@@ -44,4 +72,48 @@ dependencyManagement {
 
 test {
     useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        upload(MavenPublication) {
+            from components.java
+            groupId "com.el"
+            artifactId "$project.name"
+            version "$version"
+            artifact(sourcesJar) {
+                classifier = 'sources'
+            }
+
+            pom {
+                name = 'smile-boot-start'
+                description = 'A micro service basic support of dubbo or spring cloud feign'
+                url = 'https://radiancel.github.io'
+
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'radiancel'
+                        name = 'eddie.lys'
+                        email = 'radiance0621@gmail.com'
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            url = isReleaseBuild() ? getReleaseRepositoryUrl() : getSnapshotRepositoryUrl()
+            credentials {
+                username getRepositoryUsername()
+                password getRepositoryPassword()
+            }
+        }
+    }
 }
