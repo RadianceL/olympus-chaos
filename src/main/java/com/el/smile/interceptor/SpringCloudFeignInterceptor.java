@@ -4,6 +4,7 @@ import com.el.smile.config.ApplicationConstants;
 import com.el.smile.util.TraceLocalUtils;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.stereotype.Component;
@@ -14,13 +15,12 @@ import org.springframework.stereotype.Component;
  *
  * @author eddie
  */
-@Component
-@ConditionalOnWebApplication
-@ConditionalOnClass(RequestInterceptor.class)
+@Slf4j
 public class SpringCloudFeignInterceptor implements RequestInterceptor {
 
     @Override
     public void apply(RequestTemplate requestTemplate){
+        log.info("feign头设置traceId {}", TraceLocalUtils.getTraceId());
         requestTemplate.header(ApplicationConstants.HEADER_TRACE_ID, TraceLocalUtils.getTraceId());
     }
 
