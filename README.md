@@ -19,4 +19,4 @@
 `dubbo`是由`CloudRpcFilter`，注入依赖于`dubbo`的Filter SPI支持
 
 ## Environment
-项目启动自动激活Environment对象，获取当前工程的环境和应用名称，取值{spring.profiles.active} 和 {{spring.profiles.name}
+项目启动自动激活Environment对象，获取当前工程的环境和应用名称，取值{spring.profiles.active} 和 {spring.profiles.name}
