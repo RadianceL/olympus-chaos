@@ -11,7 +11,7 @@ import java.util.UUID;
  */
 public class TraceIdUtil {
 
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 
     public static String getTraceId(){
         String uuid = UUID.randomUUID().toString().replace("-", "");
