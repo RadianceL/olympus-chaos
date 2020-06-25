@@ -17,7 +17,7 @@ public class TraceIdUtil {
         String uuid = UUID.randomUUID().toString().replace("-", "");
         LocalDateTime localDateTime = LocalDateTime.now();
         String localDate = DATE_TIME_FORMATTER.format(localDateTime);
-        return uuid.concat(localDate);
+        return localDate.concat("-").concat(uuid);
     }
 
 }
