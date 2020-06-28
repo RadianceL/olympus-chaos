@@ -2,7 +2,7 @@ package com.el.smile.config;
 
 import com.el.smile.interceptor.BaseTraceInterceptor;
 import com.el.smile.interceptor.SpringCloudFeignInterceptor;
-import com.el.smile.util.TraceLocalUtils;
+import com.el.smile.util.LocalDataUtils;
 import feign.RequestInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -24,7 +24,7 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
 
     /**
      * 基础拦截器 从http header中获取traceId
-     * 默认激活：从前端带入trace设置到 {@link TraceLocalUtils}
+     * 默认激活：从前端带入trace设置到 {@link LocalDataUtils}
      * @param registry  添加拦截器
      */
     @Override

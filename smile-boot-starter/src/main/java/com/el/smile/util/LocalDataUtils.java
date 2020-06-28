@@ -1,7 +1,5 @@
 package com.el.smile.util;
 
-import com.el.smile.config.Environment;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -12,7 +10,7 @@ import java.util.Objects;
  *
  * @author eddie
  */
-public class TraceLocalUtils {
+public class LocalDataUtils {
 
     private static final ThreadLocal<Map<String, String>> SERVICE_INVOKE_INFO = new ThreadLocal<>();
 
