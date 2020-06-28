@@ -8,7 +8,7 @@ apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
 group = 'com.el'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.2-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 jar.enabled=true
@@ -83,7 +83,7 @@ publishing {
             }
 
             pom {
-                name = 'smile-boot-start'
+                name = 'smile-boot-starter'
                 description = 'A micro service basic support of dubbo or spring cloud feign'
                 url = 'https://radiancel.github.io'
 
