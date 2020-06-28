@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author eddie
  */
-
 public class BaseTraceInterceptor implements HandlerInterceptor {
 
     @Override
@@ -29,4 +28,8 @@ public class BaseTraceInterceptor implements HandlerInterceptor {
         return true;
     }
 
+    @Override
+    public void afterCompletion(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler, Exception ex) {
+        TraceLocalUtils.clear();
+    }
 }
