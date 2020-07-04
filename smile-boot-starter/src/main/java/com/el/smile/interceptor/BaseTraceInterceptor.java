@@ -30,6 +30,7 @@ public class BaseTraceInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler, Exception ex) {
+        response.addHeader(ApplicationConstants.HEADER_TRACE_ID, LocalDataUtils.getTraceId());
         LocalDataUtils.clear();
     }
 }

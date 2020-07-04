@@ -17,7 +17,6 @@ public class SpringCloudFeignInterceptor implements RequestInterceptor {
 
     @Override
     public void apply(RequestTemplate requestTemplate){
-        log.info("feign头设置traceId {}", LocalDataUtils.getTraceId());
         requestTemplate.header(ApplicationConstants.HEADER_TRACE_ID, LocalDataUtils.getTraceId());
     }
 

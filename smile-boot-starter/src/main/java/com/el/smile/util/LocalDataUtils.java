@@ -33,6 +33,11 @@ public class LocalDataUtils {
         SERVICE_INVOKE_INFO.get().put(key, value);
     }
 
+    public static String getUserDate(String key) {
+        checkIfNull();
+        return SERVICE_INVOKE_INFO.get().get(key);
+    }
+
     private static void checkIfNull() {
         Map<String, String> localBaseMap = SERVICE_INVOKE_INFO.get();
         if (Objects.isNull(localBaseMap)) {

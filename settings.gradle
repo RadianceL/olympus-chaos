@@ -1,4 +1,0 @@
-rootProject.name = 'smile-boot-starter'
-include 'smile-boot-logger'
-include 'smile-boot-starter'
-
