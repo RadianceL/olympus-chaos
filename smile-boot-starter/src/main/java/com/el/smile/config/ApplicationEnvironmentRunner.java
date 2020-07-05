@@ -6,6 +6,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.PostConstruct;
 import java.util.Objects;
 
 /**
@@ -14,16 +15,16 @@ import java.util.Objects;
  *
  * @author eddie
  */
-public class ApplicationEnvironmentRunner implements ApplicationRunner {
+public class ApplicationEnvironmentRunner {
 
-    @Value("spring.profiles.active")
+    @Value("${spring.profiles.active}")
     private String activeEnv;
 
-    @Value("spring.application.name")
+    @Value("${spring.application.name}")
     private String applicationName;
 
-    @Override
-    public void run(ApplicationArguments args) {
+    @PostConstruct
+    public void init() {
         if (StringUtils.isEmpty(activeEnv) || StringUtils.isEmpty(applicationName)) {
             return;
         }

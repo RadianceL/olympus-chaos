@@ -1,7 +1,14 @@
 package com.el.smile.config;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
 import com.el.smile.interceptor.BaseTraceInterceptor;
 import com.el.smile.interceptor.SpringCloudFeignInterceptor;
+import com.el.smile.logger.logger.Slf4jEventLogger;
+import com.el.smile.support.EventProcess;
+import com.el.smile.support.logger.CostTimeLoggerHandler;
+import com.el.smile.support.logger.LoggerHandler;
+import com.el.smile.support.logger.TraceEventLoggerHandler;
 import com.el.smile.util.LocalDataUtils;
 import feign.RequestInterceptor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +48,35 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
     public ApplicationEnvironmentRunner application() {
         return new ApplicationEnvironmentRunner();
     }
+
+    @Bean
+    public CostTimeLoggerHandler costTimeLoggerHandler() {
+        return new CostTimeLoggerHandler();
+    }
+
+    public Logger eventLogger() {
+        return Slf4jEventLogger.builder()
+                .level(Level.INFO)
+                .path("/Users/eddie/Desktop")
+                .name("event")
+                .pattern("%d{yyyy-MM-dd HH:mm:ss} - %msg%n").build();
+    }
+
+    @Bean
+    public TraceEventLoggerHandler traceEventLoggerHandler() {
+        return new TraceEventLoggerHandler();
+    }
+
+    @Bean
+    public LoggerHandler loggerHandler() {
+        return new LoggerHandler(eventLogger());
+    }
+
+    @Bean
+    public EventProcess eventProcess() {
+        return new EventProcess();
+    }
+
 
     /**
      * SpringCloudFeignInterceptor拦截器配置
