@@ -20,3 +20,5 @@
 
 ## Environment
 项目启动自动激活Environment对象，获取当前工程的环境和应用名称，取值{spring.profiles.active} 和 {spring.profiles.name}
+
+## EVENT LOGGER
