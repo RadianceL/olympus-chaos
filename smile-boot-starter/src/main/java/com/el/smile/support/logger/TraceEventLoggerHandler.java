@@ -9,6 +9,7 @@ import com.el.smile.support.handler.EventHandler;
 import com.el.smile.support.management.ProcessHandlerManagement;
 import com.el.smile.support.model.EventContext;
 import com.el.smile.util.LocalDataUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
@@ -44,6 +45,12 @@ public class TraceEventLoggerHandler implements EventHandler {
         loggerContext.setEnv(Environment.getInstance().getEnvironment());
         loggerContext.setIp(PublicIpUtil.getPublicIpAddress());
         loggerContext.setEvent(annotation.event());
+
+        String methodClassName = point.getSignature().getDeclaringTypeName();
+        String methodDeclaringName = point.getSignature().getName();
+        if (StringUtils.isNotBlank(methodClassName) && StringUtils.isNotBlank(methodDeclaringName)) {
+            loggerContext.setMethod(methodClassName.concat(".").concat(methodDeclaringName).concat("()"));
+        }
 
         boolean parameter = annotation.parameter();
         if (parameter) {

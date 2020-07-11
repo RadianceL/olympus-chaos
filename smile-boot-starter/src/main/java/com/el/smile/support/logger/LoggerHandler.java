@@ -31,6 +31,7 @@ public class LoggerHandler implements EventHandler {
             ", env [{}]" +
             ", ip [{}]" +
             ", event [{}]" +
+            ", method [{}]" +
             ", success [{}]" +
             ", costTime [{}]" +
             ", parameter [{}]" +
@@ -43,9 +44,7 @@ public class LoggerHandler implements EventHandler {
     }
 
     @Override
-    public void preInvoke(EventContext eventContext, ProceedingJoinPoint point) {
-
-    }
+    public void preInvoke(EventContext eventContext, ProceedingJoinPoint point) { }
 
     @Override
     public void postInvoke(EventContext eventContext, ProceedingJoinPoint point) {
@@ -62,6 +61,7 @@ public class LoggerHandler implements EventHandler {
                         loggerContext.getEnv(),
                         loggerContext.getIp(),
                         loggerContext.getEvent(),
+                        loggerContext.getMethod(),
                         loggerContext.getSuccess(),
                         loggerContext.getCostTime(),
                         loggerContext.getParameter(),

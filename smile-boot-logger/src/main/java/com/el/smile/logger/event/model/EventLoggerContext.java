@@ -29,6 +29,10 @@ public class EventLoggerContext {
      */
     private String env;
     /**
+     * 方法名
+     */
+    private String method;
+    /**
      * 当前事件
      */
     private String event;
