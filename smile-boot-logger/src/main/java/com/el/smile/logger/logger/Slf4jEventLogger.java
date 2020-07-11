@@ -8,7 +8,9 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.rolling.RollingFileAppender;
 import ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy;
 import ch.qos.logback.core.util.FileSize;
+import com.el.smile.logger.config.SmileLoggerConstants;
 import com.el.smile.logger.logger.builder.BaseLoggerBuilder;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
@@ -30,7 +32,8 @@ public class Slf4jEventLogger extends BaseLoggerBuilder {
 
     @Override
     public Logger build() {
-        String logFile = this.getLoggerPath() + File.separator + this.getLoggerName() + ".log";
+        String logFile = buildLogPath();
+//        String logFile = this.getLoggerPath() + File.separator + this.getLoggerName() + ".log";
 
         LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
         Logger logger = (Logger) LoggerFactory.getLogger(this.getLoggerName());
@@ -75,5 +78,29 @@ public class Slf4jEventLogger extends BaseLoggerBuilder {
         logger.addAppender(asyncAppender);
 
         return logger;
+    }
+
+    private String buildLogPath() {
+        String logBasePath = this.getLoggerPath();
+        String logPath = StringUtils.substring(logBasePath, 9);
+        if (StringUtils.startsWith(logBasePath, SmileLoggerConstants.RELATIVE)) {
+            String property = System.getProperty("user.dir");
+            if (StringUtils.startsWith(logPath, File.pathSeparator)) {
+                return property.concat(logPath);
+            }
+            return property.concat(File.pathSeparator).concat(logPath);
+        }else if (StringUtils.startsWith(logBasePath, SmileLoggerConstants.ABSOLUTE)) {
+            if (StringUtils.startsWith(logPath, File.pathSeparator)) {
+                return logPath;
+            }
+            return File.pathSeparator.concat(logPath);
+        }
+
+        throw new IllegalArgumentException("smile-boot logger config error: log path illegal");
+    }
+
+    public static void main(String[] args) {
+        String loggerPath = "relative: fjadf/";
+        System.out.println(StringUtils.substring(loggerPath, 9));
     }
 }

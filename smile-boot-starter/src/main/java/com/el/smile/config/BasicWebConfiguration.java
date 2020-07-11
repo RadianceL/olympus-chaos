@@ -11,7 +11,9 @@ import com.el.smile.support.logger.LoggerHandler;
 import com.el.smile.support.logger.TraceEventLoggerHandler;
 import com.el.smile.util.LocalDataUtils;
 import feign.RequestInterceptor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
@@ -27,7 +29,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Slf4j
 @Configuration
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class BasicWebConfiguration implements WebMvcConfigurer{
+
+    private static SmileBootProperties smileBootProperties;
 
     /**
      * 基础拦截器 从http header中获取traceId
@@ -55,11 +60,15 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
     }
 
     public Logger eventLogger() {
+        SmileBootProperties.TraceLoggerConfig traceLoggerConfig = smileBootProperties.getTraceLogger();
         return Slf4jEventLogger.builder()
                 .level(Level.INFO)
-                .path("/Users/eddie/Desktop")
-                .name("event")
-                .pattern("%d{yyyy-MM-dd HH:mm:ss} - %msg%n").build();
+                .path(traceLoggerConfig.getLogPath())
+                .name(traceLoggerConfig.getLogFileName())
+                .pattern(traceLoggerConfig.getPattern())
+                .maxFileSize(traceLoggerConfig.getMaxFileSize())
+                .maxHistory(traceLoggerConfig.getMaxHistory())
+                .totalSizeCap(traceLoggerConfig.getTotalSizeCap()).build();
     }
 
     @Bean

@@ -1,4 +1,4 @@
-package com.el.smile.config;
+package com.el.smile.logger.config;
 
 /**
  * 应用常量
@@ -6,12 +6,7 @@ package com.el.smile.config;
  *
  * @author eddie
  */
-public class ApplicationConstants {
-    /* ---------- 基础配置 ----------*/
-    /**
-     * 传递traceId 的header name
-     */
-    public static final String HEADER_TRACE_ID = "traceId";
+public class SmileLoggerConstants {
     /* ---------- 日志配置 ----------*/
     /**
      * 相对
