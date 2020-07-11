@@ -1,5 +1,6 @@
 package com.el.smile.support.logger;
 
+import com.alibaba.fastjson.JSON;
 import com.el.smile.logger.event.model.EventLoggerContext;
 import com.el.smile.support.handler.EventHandler;
 import com.el.smile.support.management.ProcessHandlerManagement;
@@ -11,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.Objects;
 
 /**
  * 花费时间控制器
@@ -47,16 +47,25 @@ public class LoggerHandler implements EventHandler {
     @Override
     public void postInvoke(EventContext eventContext, ProceedingJoinPoint point) {
         EventLoggerContext loggerContext = eventContext.getLoggerContext();
-        eventLogger.info(DEFAULT_LOGGER_TEMPLATE,
-                loggerContext.getTraceId(),
-                loggerContext.getAppName(),
-                loggerContext.getEnv(),
-                loggerContext.getIp(),
-                loggerContext.getEvent(),
-                loggerContext.getCostTime(),
-                loggerContext.getParameter(),
-                loggerContext.getResult()
-        );
+        switch (eventContext.getLoggerType()) {
+            case JSON:
+                eventLogger.info(JSON.toJSONString(loggerContext));
+                break;
+            case FORMAT:
+                eventLogger.info(DEFAULT_LOGGER_TEMPLATE,
+                        loggerContext.getTraceId(),
+                        loggerContext.getAppName(),
+                        loggerContext.getEnv(),
+                        loggerContext.getIp(),
+                        loggerContext.getEvent(),
+                        loggerContext.getCostTime(),
+                        loggerContext.getParameter(),
+                        loggerContext.getResult();
+                break;
+            default:
+                break;
+        }
+
     }
 
     @PostConstruct

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.el.smile.config.Environment;
 import com.el.smile.logger.event.annotation.EventTrace;
 import com.el.smile.logger.event.model.EventLoggerContext;
+import com.el.smile.logger.utils.PublicIpUtil;
 import com.el.smile.support.handler.EventHandler;
 import com.el.smile.support.management.ProcessHandlerManagement;
 import com.el.smile.support.model.EventContext;
@@ -41,9 +42,10 @@ public class TraceEventLoggerHandler implements EventHandler {
         loggerContext.setTraceId(LocalDataUtils.getTraceId());
         loggerContext.setAppName(Environment.getInstance().getAppName());
         loggerContext.setEnv(Environment.getInstance().getEnvironment());
+        loggerContext.setIp(PublicIpUtil.getPublicIpAddress());
         loggerContext.setEvent(annotation.event());
 
-        boolean parameter = annotation.paramter();
+        boolean parameter = annotation.parameter();
         if (parameter) {
             Object[] args = point.getArgs();
             if (Objects.nonNull(args) && args.length > 0) {
@@ -62,6 +64,8 @@ public class TraceEventLoggerHandler implements EventHandler {
         MethodSignature signature = (MethodSignature) point.getSignature();
         EventTrace annotation = signature.getMethod().getAnnotation(EventTrace.class);
 
+        eventContext.setLoggerType(annotation.loggerType());
+
         if (annotation.response()) {
             Object resultObj = eventContext.getResultObj();
             if (Objects.nonNull(resultObj)) {
@@ -69,6 +73,8 @@ public class TraceEventLoggerHandler implements EventHandler {
             }else {
                 loggerContext.setResult("null");
             }
+        }else {
+            loggerContext.setResult("un-trace");
         }
     }
 

@@ -32,7 +32,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class BasicWebConfiguration implements WebMvcConfigurer{
 
-    private static SmileBootProperties smileBootProperties;
+    private final SmileBootProperties smileBootProperties;
 
     /**
      * 基础拦截器 从http header中获取traceId
@@ -85,7 +85,6 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
     public EventProcess eventProcess() {
         return new EventProcess();
     }
-
 
     /**
      * SpringCloudFeignInterceptor拦截器配置

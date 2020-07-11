@@ -1,5 +1,7 @@
 package com.el.smile.logger.event.annotation;
 
+import com.el.smile.logger.event.model.LoggerType;
+
 import java.lang.annotation.*;
 
 /**
@@ -22,10 +24,14 @@ public @interface EventTrace {
     /**
      * 请求参数
      */
-    boolean paramter() default true;
+    boolean parameter() default true;
     /**
      * 返回值
      */
     boolean response() default true;
+
+    LoggerType loggerType() default LoggerType.FORMAT;
+
+    String key() default "";
 
 }

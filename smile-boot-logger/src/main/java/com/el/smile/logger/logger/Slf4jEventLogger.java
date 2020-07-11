@@ -10,11 +10,17 @@ import ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy;
 import ch.qos.logback.core.util.FileSize;
 import com.el.smile.logger.config.SmileLoggerConstants;
 import com.el.smile.logger.logger.builder.BaseLoggerBuilder;
+import com.el.smile.logger.utils.PublicIpUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.InputStream;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Enumeration;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 基础日志类
@@ -48,7 +54,8 @@ public class Slf4jEventLogger extends BaseLoggerBuilder {
         RollingFileAppender<ILoggingEvent> rollingAppender = new RollingFileAppender<>();
         rollingAppender.setContext(context);
         rollingAppender.setEncoder(encoder);
-        rollingAppender.setFile(logFile);
+        String logFilePath = logFile + File.separator + this.getLoggerName() + ".log";
+        rollingAppender.setFile(logFilePath);
 
         // 滚动策略
         SizeAndTimeBasedRollingPolicy<?> rollingPolicy = new SizeAndTimeBasedRollingPolicy<>();
@@ -82,25 +89,21 @@ public class Slf4jEventLogger extends BaseLoggerBuilder {
 
     private String buildLogPath() {
         String logBasePath = this.getLoggerPath();
-        String logPath = StringUtils.substring(logBasePath, 9);
+        int index = StringUtils.indexOf(logBasePath, ":") + 1;
+        String logPath = StringUtils.trim(StringUtils.substring(logBasePath, index));
         if (StringUtils.startsWith(logBasePath, SmileLoggerConstants.RELATIVE)) {
             String property = System.getProperty("user.dir");
-            if (StringUtils.startsWith(logPath, File.pathSeparator)) {
+            if (StringUtils.startsWith(logPath, File.separator)) {
                 return property.concat(logPath);
             }
-            return property.concat(File.pathSeparator).concat(logPath);
+            return property.concat(File.separator).concat(logPath);
         }else if (StringUtils.startsWith(logBasePath, SmileLoggerConstants.ABSOLUTE)) {
-            if (StringUtils.startsWith(logPath, File.pathSeparator)) {
+            if (StringUtils.startsWith(logPath, File.separator)) {
                 return logPath;
             }
-            return File.pathSeparator.concat(logPath);
+            return File.separator.concat(logPath);
         }
 
         throw new IllegalArgumentException("smile-boot logger config error: log path illegal");
-    }
-
-    public static void main(String[] args) {
-        String loggerPath = "relative: fjadf/";
-        System.out.println(StringUtils.substring(loggerPath, 9));
     }
 }

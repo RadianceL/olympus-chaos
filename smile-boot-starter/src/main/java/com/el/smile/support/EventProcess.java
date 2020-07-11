@@ -5,6 +5,7 @@ import com.el.smile.support.management.ProcessHandlerManagement;
 import com.el.smile.support.model.EventContext;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
@@ -41,4 +42,10 @@ public class EventProcess {
         }
         return result;
     }
+
+    @AfterThrowing(throwing = "ex", value = "eventTracePointCut()")
+    public void doRecoveryActions(Throwable ex) {
+
+    }
+
 }

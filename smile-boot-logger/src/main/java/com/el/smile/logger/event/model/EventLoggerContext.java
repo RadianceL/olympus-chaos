@@ -14,7 +14,6 @@ import java.util.Objects;
  */
 @Data
 public class EventLoggerContext {
-
     /**
      * 请求ID
      */
@@ -44,10 +43,6 @@ public class EventLoggerContext {
      */
     private Long costTime;
     /**
-     * 错误code
-     */
-    private String errorCode;
-    /**
      * 参数
      */
     private String parameter;
@@ -56,13 +51,13 @@ public class EventLoggerContext {
      */
     private String result;
     /**
+     * 错误code
+     */
+    private String errorCode;
+    /**
      * 错误信息
      */
     private String errorMessage;
-    /**
-     * 展示信息
-     */
-    private String displayMessage;
     /**
      * 异常
      */
@@ -74,7 +69,7 @@ public class EventLoggerContext {
 
     public void addFeature(String key, Object value) {
         if (Objects.isNull(features)) {
-            features = new HashMap<>();
+            features = new HashMap<>(8);
         }
         this.features.put(key, value);
     }

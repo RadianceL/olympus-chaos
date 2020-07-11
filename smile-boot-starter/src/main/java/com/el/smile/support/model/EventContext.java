@@ -1,6 +1,7 @@
 package com.el.smile.support.model;
 
 import com.el.smile.logger.event.model.EventLoggerContext;
+import com.el.smile.logger.event.model.LoggerType;
 import lombok.Data;
 
 import java.util.HashMap;
@@ -28,6 +29,10 @@ public class EventContext {
      * 返回对象
      */
     private Object resultObj;
+    /**
+     * 日志类型
+     */
+    private LoggerType loggerType;
     /**
      * 基础log日志内容
      */
