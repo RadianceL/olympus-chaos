@@ -1,7 +1,7 @@
 # smile-boot-starter
 
 <div>
-  <img src="https://img.shields.io/badge/%F0%9F%93%85%20Last%20update%20-%20March%2012%202020-green.svg" alt="Last update: March, 2020">
+  <img src="https://img.shields.io/badge/%F0%9F%93%85%20Last%20update%20-%20July%2011%202020-green.svg" alt="Last update: July, 2020">
   <img src="https://img.shields.io/badge/%E2%9C%94%20Spring%20Boot%20Version%20-%202.3.1.RELEASE-brightgreen.svg" alt="Spring Boot Version 2.3.1.RELEASE">
 </div>
 
@@ -53,6 +53,14 @@ Loki最近新出的，好多人在推，我没有尝试过，看介绍感觉还�
 ## 技术支持
 
 项目个人维护，有使用问题，或者想共同开发都可以issus里留问题或者微信，周末会看
+
+## 更新记录
+2020-07-11 --------- 0.0.1-SNAPSHOT
+1. 日志输出可配置
+2. 获取公网IP
+3. 增加日志类型控制 FORMAT ｜ JSON
+
+PS：最近更新了Mac 10.16（BIG SUR）系统，各种问题，又懒得退回，就慢点搞吧
 
 主要依赖
 - spring boot自动装配

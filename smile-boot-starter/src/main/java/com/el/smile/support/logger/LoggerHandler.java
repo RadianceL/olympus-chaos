@@ -5,6 +5,7 @@ import com.el.smile.logger.event.model.EventLoggerContext;
 import com.el.smile.support.handler.EventHandler;
 import com.el.smile.support.management.ProcessHandlerManagement;
 import com.el.smile.support.model.EventContext;
+import com.el.smile.util.LocalDataUtils;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.slf4j.Logger;
@@ -30,9 +31,11 @@ public class LoggerHandler implements EventHandler {
             ", env [{}]" +
             ", ip [{}]" +
             ", event [{}]" +
+            ", success [{}]" +
             ", costTime [{}]" +
             ", parameter [{}]" +
-            ", response [{}]";
+            ", response [{}]" +
+            ", features [{}]";
 
     @Override
     public int getOrder() {
@@ -47,6 +50,7 @@ public class LoggerHandler implements EventHandler {
     @Override
     public void postInvoke(EventContext eventContext, ProceedingJoinPoint point) {
         EventLoggerContext loggerContext = eventContext.getLoggerContext();
+        loggerContext.setFeatures(LocalDataUtils.getUserLoggerFeature());
         switch (eventContext.getLoggerType()) {
             case JSON:
                 eventLogger.info(JSON.toJSONString(loggerContext));
@@ -58,9 +62,11 @@ public class LoggerHandler implements EventHandler {
                         loggerContext.getEnv(),
                         loggerContext.getIp(),
                         loggerContext.getEvent(),
+                        loggerContext.getSuccess(),
                         loggerContext.getCostTime(),
                         loggerContext.getParameter(),
-                        loggerContext.getResult();
+                        loggerContext.getResult(),
+                        loggerContext.getFeatures());
                 break;
             default:
                 break;

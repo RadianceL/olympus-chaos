@@ -64,6 +64,7 @@ public class TraceEventLoggerHandler implements EventHandler {
         MethodSignature signature = (MethodSignature) point.getSignature();
         EventTrace annotation = signature.getMethod().getAnnotation(EventTrace.class);
 
+        loggerContext.setSuccess(LocalDataUtils.getIsSuccess());
         eventContext.setLoggerType(annotation.loggerType());
 
         if (annotation.response()) {

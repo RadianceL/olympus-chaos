@@ -2,9 +2,7 @@ package com.el.smile.logger.event.model;
 
 import lombok.Data;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * 日志基础上下文
@@ -65,12 +63,5 @@ public class EventLoggerContext {
     /**
      * 扩展字段
      */
-    private Map<String, Object> features;
-
-    public void addFeature(String key, Object value) {
-        if (Objects.isNull(features)) {
-            features = new HashMap<>(8);
-        }
-        this.features.put(key, value);
-    }
+    private Map<String, String> features;
 }
