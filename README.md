@@ -30,29 +30,100 @@
 
 smile-boot-starter提供极简模式快速让项目拥有traceId的跟踪能力
 （一次请求全局拥有一个ID，聚合日志后可以通过该id查询本次请求的全埋点路径报告）
-
+## QUICK START
 两步快速实现：
 1. 引入依赖
-![image](https://raw.githubusercontent.com/RadianceL/smile-boot-starter/master/images/WechatIMG1.png)
+```xml
+<dependency>
+	<groupId>com.el</groupId>
+	<artifactId>smile-boot-starter</artifactId>
+    <version>${smile-boot-starter.last-version}</version>
+</dependency>
+```
+2. application.yml配置
+```yaml
+spring:
+  profiles:
+    # 配置运行环境 可选DAILY｜STAGING｜PROD，与application.yml多环境配置不冲突
+    active: STAGING
+  application:
+    # 应用名称
+    name: trace-test
+  smile-boot:
+    trace-logger:
+      # 日志路径配置，两种配置方式： 例如fatjar位置在/root/admin/runtime/trace-test
+      # absolute - 取绝对路径，absolute: /root/admin/runtime/trace-test/log
+      # relative - 取项目运行的相对路径，relative: log -> /root/admin/runtime/trace-test/log
+      log-path: relative:log
+      # 日志文件名 event -> /root/admin/runtime/trace-test/log/event.log
+      log-file-name: event
+      # 2020-07-12 00:33:32 - msg
+      pattern: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+```
 2. 对要埋点的方法添加注解
-![image](https://raw.githubusercontent.com/RadianceL/smile-boot-starter/master/images/WechatIMG2.png)
+```java
+@Slf4j
+@RestController
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+public class SmsSenderController {
 
+    private final TraceIdServiceProvider traceIdServiceProvider;
+   
+    
+    @GetMapping("/test/api")
+    @EventTrace(event = "测试", loggerType = LoggerType.JSON)
+    public String test() {
+        log.info(LocalDataUtils.getTraceId());
+        LocalDataUtils.setIsSucess(true);
+        return traceIdServiceProvider.test();
+    }
+
+}
+```
 即可获取到日志，默认情况下，日志打在spring boot jar目录下的event.log
+```text
+FORMAT:
+2020-07-12 00:30:16 - TRACE LOG - 
+traceId [20200712003016-b20bc50af8824d988d025a5a17124dd8], 
+appName [trace-test], 
+env [STAGING], 
+ip [115.220.204.114], 
+event [test - /provider/test/api], 
+method [com.landscape.user.repository.TraceIdServiceProvider.test()], 
+success [true], 
+costTime [4], 
+parameter [without parameter], 
+response ["success 20200712003016-b20bc50af8824d988d025a5a17124dd8"], 
+features [{LOGGER_IS_SUCCESS=true}]
 
-![image](https://raw.githubusercontent.com/RadianceL/smile-boot-starter/master/images/WechatIMG3.png)
+JSON:
+2020-07-12 00:30:16 - {
+    "appName":"landscape-user",
+    "costTime":4,
+    "env":"STAGING",
+    "event":"测试",
+    "features":{
+        "LOGGER_IS_SUCCESS":"true"
+    },
+    "ip":"115.220.204.114",
+    "method":"com.landscape.user.repository.TraceIdServiceProvider.test()",
+    "parameter":"without parameter",
+    "result":"\"success 20200712003332-419cdb0d285e433daac7bebbfb88fca3\"",
+    "success":true,
+    "traceId":"20200712003332-419cdb0d285e433daac7bebbfb88fca3"
+}
+```
 
-TODO
-[ ] 日志参数可配置
-[ ] 日志文件位置及滚动策略
+TODO:
+- [x] 日志参数可配置
+- [x] 日志文件位置及滚动策略
 
 日志聚合可以使用ELK，或者Loki
 ELK比较重，上手有难度，但功能齐全
 Loki最近新出的，好多人在推，我没有尝试过，看介绍感觉还可以，可以尝试
 
-
 ## 技术支持
-
-项目个人维护，有使用问题，或者想共同开发都可以issus里留问题或者微信，周末会看
+项目个人维护，有使用问题，或者想共同开发都可以issues里留问题或者微信，周末会看
 
 ## 更新记录
 2020-07-11 --------- 0.0.1-SNAPSHOT
