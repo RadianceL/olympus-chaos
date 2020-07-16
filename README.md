@@ -8,28 +8,33 @@
 超轻量级微服务基本支持框架
 
 ## TRACE ID
+概念： 微服务架构下，一个请求可能会有多个应用来承载，每个应用又有多个主机来集群部署，假设一次请求出现问题，我们需要跟踪一次请求，如果没有全局统一的一个ID，问题排查起来可能比较困难
+
+`smile-boot-starter`提供极简模式快速让项目拥有traceId的跟踪能力（一次请求全局拥有一个ID，聚合日志后可以通过该id查询本次请求的全埋点路径报告）
+
+自动集成`smile-boot-logger`，对日志埋点输出跟踪日志
+
 引入`smile-boot-starter`后，自动支持traceId，可由前端传入`traceId`到后端，也可由首个接收到请求的服务自动生成
+支持`spring cloud feign`和`dubbo`, 不需要任何配置，引入jar即自动支持
 
-默认拦截器为`com.el.smile.interceptor.BaseTraceInterceptor`
-
-支持`spring cloud feign`和`dubbo`
-
-`spring cloud feign`是由`SpringCloudFeignInterceptor`支持，由config类控制注入
-
-`dubbo`是由`CloudRpcFilter`，注入依赖于`dubbo`的Filter SPI支持
-
-提供全链路traceId支持，前端或者首个被访问的服务生成，之后本次请求全链路获取全局traceId
-
-`LocalDataUtils.getTraceId()`
+提供全链路traceId支持，前端或者首个被访问的服务生成，之后本次请求全链路通过`LocalDataUtils.getTraceId()`获取全局traceId
 
 ## Environment
 项目启动自动激活Environment对象，获取当前工程的环境和应用名称，取值{spring.profiles.active} 和 {spring.profiles.name}
+EventLogger也会依赖这个类输出环境，所以spring 配置中需要这两个配置
+```java
+public class EnvironmentTemplate {
 
-## EVENT LOGGER
-概念： 微服务架构下，一个请求可能会有多个应用来承载，每个应用又有多个主机来集群部署，假设一次请求出现问题，我们需要跟踪一次请求，如果没有全局统一的一个ID，问题排查起来可能比较困难
-
-smile-boot-starter提供极简模式快速让项目拥有traceId的跟踪能力
-（一次请求全局拥有一个ID，聚合日志后可以通过该id查询本次请求的全埋点路径报告）
+    public static void main(String[] args){
+        // 是否是日常环境
+        Environment.getInstance().isDaily();
+        // 是否是预发环境
+        Environment.getInstance().isStaging();
+        // 是否是线上环境
+        Environment.getInstance().isProd();
+    }
+}
+```
 ## QUICK START
 两步快速实现：
 1. 引入依赖
@@ -37,7 +42,7 @@ smile-boot-starter提供极简模式快速让项目拥有traceId的跟踪能力
 <dependency>
 	<groupId>com.el</groupId>
 	<artifactId>smile-boot-starter</artifactId>
-    <version>${smile-boot-starter.last-version}</version>
+	<version>${smile-boot-starter.last-version}</version>
 </dependency>
 ```
 2. application.yml配置
@@ -98,7 +103,7 @@ features [{LOGGER_IS_SUCCESS=true}]
 
 JSON:
 2020-07-12 00:30:16 - {
-    "appName":"landscape-user",
+    "appName":"trace-test",
     "costTime":4,
     "env":"STAGING",
     "event":"测试",
@@ -118,8 +123,8 @@ TODO:
 - [x] 日志参数可配置
 - [x] 日志文件位置及滚动策略
 
-日志聚合可以使用ELK，或者Loki
-ELK比较重，上手有难度，但功能齐全
+日志聚合可以使用ELK，或者Loki <br/>
+ELK比较重，上手有难度，但功能齐全 <br/>
 Loki最近新出的，好多人在推，我没有尝试过，看介绍感觉还可以，可以尝试
 
 ## 技术支持
