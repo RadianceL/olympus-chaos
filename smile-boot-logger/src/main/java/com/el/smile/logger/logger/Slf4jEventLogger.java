@@ -10,17 +10,11 @@ import ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy;
 import ch.qos.logback.core.util.FileSize;
 import com.el.smile.logger.config.SmileLoggerConstants;
 import com.el.smile.logger.logger.builder.BaseLoggerBuilder;
-import com.el.smile.logger.utils.PublicIpUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.InputStream;
-import java.net.*;
 import java.nio.charset.StandardCharsets;
-import java.util.Enumeration;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * 基础日志类
@@ -39,7 +33,6 @@ public class Slf4jEventLogger extends BaseLoggerBuilder {
     @Override
     public Logger build() {
         String logFile = buildLogPath();
-//        String logFile = this.getLoggerPath() + File.separator + this.getLoggerName() + ".log";
 
         LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
         Logger logger = (Logger) LoggerFactory.getLogger(this.getLoggerName());
