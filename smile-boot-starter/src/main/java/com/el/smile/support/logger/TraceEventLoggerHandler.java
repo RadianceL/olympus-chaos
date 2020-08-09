@@ -26,7 +26,6 @@ import java.util.Objects;
  * @author eddie
  */
 @Component
-
 public class TraceEventLoggerHandler implements EventHandler {
 
     @Override

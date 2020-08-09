@@ -59,18 +59,6 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
         return new CostTimeLoggerHandler();
     }
 
-    public Logger eventLogger() {
-        SmileBootProperties.TraceLoggerConfig traceLoggerConfig = smileBootProperties.getTraceLogger();
-        return Slf4jEventLogger.builder()
-                .level(Level.INFO)
-                .path(traceLoggerConfig.getLogPath())
-                .name(traceLoggerConfig.getLogFileName())
-                .pattern(traceLoggerConfig.getPattern())
-                .maxFileSize(traceLoggerConfig.getMaxFileSize())
-                .maxHistory(traceLoggerConfig.getMaxHistory())
-                .totalSizeCap(traceLoggerConfig.getTotalSizeCap()).build();
-    }
-
     @Bean
     public TraceEventLoggerHandler traceEventLoggerHandler() {
         return new TraceEventLoggerHandler();
@@ -96,5 +84,17 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
     @ConditionalOnClass(RequestInterceptor.class)
     public SpringCloudFeignInterceptor springCloudFeignInterceptor(){
         return new SpringCloudFeignInterceptor();
+    }
+
+    public Logger eventLogger() {
+        SmileBootProperties.TraceLoggerConfig traceLoggerConfig = smileBootProperties.getTraceLogger();
+        return Slf4jEventLogger.builder()
+                .level(Level.INFO)
+                .path(traceLoggerConfig.getLogPath())
+                .name(traceLoggerConfig.getLogFileName())
+                .pattern(traceLoggerConfig.getPattern())
+                .maxFileSize(traceLoggerConfig.getMaxFileSize())
+                .maxHistory(traceLoggerConfig.getMaxHistory())
+                .totalSizeCap(traceLoggerConfig.getTotalSizeCap()).build();
     }
 }
