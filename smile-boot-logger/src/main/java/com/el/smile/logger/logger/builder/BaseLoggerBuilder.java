@@ -119,7 +119,11 @@ public class BaseLoggerBuilder {
         return this.totalSizeCap;
     }
 
-    public Logger build() {
+    public Logger build(LoggerType loggerType) {
         throw new RuntimeException("logger builder must override #build()");
+    }
+
+    public Logger buildLogger() {
+        throw new RuntimeException("logger builder must override #buildLogger()");
     }
 }

@@ -79,7 +79,7 @@ public class SmsSenderController {
     @EventTrace(event = "测试", loggerType = LoggerType.JSON)
     public String test() {
         log.info(LocalDataUtils.getTraceId());
-        LocalDataUtils.setIsSucess(true);
+        SmileLocalUtils.setIsSucess(true);
         return traceIdServiceProvider.test();
     }
 

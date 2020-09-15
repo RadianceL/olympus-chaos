@@ -5,7 +5,7 @@ import com.el.smile.logger.event.model.EventLoggerContext;
 import com.el.smile.support.handler.EventHandler;
 import com.el.smile.support.management.ProcessHandlerManagement;
 import com.el.smile.support.model.EventContext;
-import com.el.smile.util.LocalDataUtils;
+import com.el.smile.util.SmileLocalUtils;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.slf4j.Logger;
@@ -26,13 +26,13 @@ public class LoggerHandler implements EventHandler {
 
     private final Logger eventLogger;
 
-    private static final String DEFAULT_LOGGER_TEMPLATE = "TRACE LOG - traceId [{}]" +
+    private static final String DEFAULT_LOGGER_TEMPLATE = "TRACE LOG -" +
+            "  traceId [{}]" +
             ", appName [{}]" +
             ", env [{}]" +
             ", ip [{}]" +
             ", event [{}]" +
             ", method [{}]" +
-            ", success [{}]" +
             ", costTime [{}]" +
             ", parameter [{}]" +
             ", response [{}]" +
@@ -49,7 +49,7 @@ public class LoggerHandler implements EventHandler {
     @Override
     public void postInvoke(EventContext eventContext, ProceedingJoinPoint point) {
         EventLoggerContext loggerContext = eventContext.getLoggerContext();
-        loggerContext.setFeatures(LocalDataUtils.getUserLoggerFeature());
+        loggerContext.setFeatures(SmileLocalUtils.getUserLoggerFeature());
         switch (eventContext.getLoggerType()) {
             case JSON:
                 eventLogger.info(JSON.toJSONString(loggerContext));
@@ -62,7 +62,6 @@ public class LoggerHandler implements EventHandler {
                         loggerContext.getIp(),
                         loggerContext.getEvent(),
                         loggerContext.getMethod(),
-                        loggerContext.getSuccess(),
                         loggerContext.getCostTime(),
                         loggerContext.getParameter(),
                         loggerContext.getResult(),

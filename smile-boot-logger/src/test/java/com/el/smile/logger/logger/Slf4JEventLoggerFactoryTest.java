@@ -11,15 +11,15 @@ import java.util.concurrent.TimeUnit;
  *
  * @author eddie
  */
-class Slf4jEventLoggerTest {
+class Slf4JEventLoggerFactoryTest {
 
     @Test
     void build() throws InterruptedException {
-        Logger logger = Slf4jEventLogger.builder()
+        Logger logger = Slf4jTraceLoggerFactory.builder()
                 .level(Level.DEBUG)
-                .path("/Users/eddie/Documents/web-app/github/smile-boot")
+                .path("absolute:/Users/eddie.lys/Documents/workspace/utils/smile-boot")
                 .name("event")
-                .pattern("%d{yyyy-MM-dd HH:mm:ss} - %msg%n").build();
+                .pattern("%d{yyyy-MM-dd HH:mm:ss} - %msg%n").buildLogger();
 
         logger.error("test");
         TimeUnit.MILLISECONDS.sleep(1);

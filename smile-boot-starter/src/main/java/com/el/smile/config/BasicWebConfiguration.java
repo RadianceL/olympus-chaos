@@ -4,12 +4,13 @@ import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import com.el.smile.interceptor.BaseTraceInterceptor;
 import com.el.smile.interceptor.SpringCloudFeignInterceptor;
-import com.el.smile.logger.logger.Slf4jEventLogger;
+import com.el.smile.logger.logger.Slf4jEventLoggerFactory;
+import com.el.smile.logger.logger.Slf4jTraceLoggerFactory;
 import com.el.smile.support.EventProcess;
 import com.el.smile.support.logger.CostTimeLoggerHandler;
 import com.el.smile.support.logger.LoggerHandler;
-import com.el.smile.support.logger.TraceEventLoggerHandler;
-import com.el.smile.util.LocalDataUtils;
+import com.el.smile.support.logger.TraceLoggerHandler;
+import com.el.smile.util.SmileLocalUtils;
 import feign.RequestInterceptor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +37,7 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
 
     /**
      * 基础拦截器 从http header中获取traceId
-     * 默认激活：从前端带入trace设置到 {@link LocalDataUtils}
+     * 默认激活：从前端带入trace设置到 {@link SmileLocalUtils}
      * @param registry  添加拦截器
      */
     @Override
@@ -60,13 +61,13 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
     }
 
     @Bean
-    public TraceEventLoggerHandler traceEventLoggerHandler() {
-        return new TraceEventLoggerHandler();
+    public TraceLoggerHandler traceEventLoggerHandler() {
+        return new TraceLoggerHandler();
     }
 
     @Bean
     public LoggerHandler loggerHandler() {
-        return new LoggerHandler(eventLogger());
+        return new LoggerHandler(traceLogger());
     }
 
     @Bean
@@ -76,7 +77,7 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
 
     /**
      * SpringCloudFeignInterceptor拦截器配置
-     * 注入条件： web应用 引入Feign依赖
+     * 注入条件： web应用 引入openFeign依赖
      * @return {@link SpringCloudFeignInterceptor spring feign header拦截器配置}
      */
     @Bean
@@ -86,15 +87,26 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
         return new SpringCloudFeignInterceptor();
     }
 
+    @Bean("eventLogger")
     public Logger eventLogger() {
         SmileBootProperties.TraceLoggerConfig traceLoggerConfig = smileBootProperties.getTraceLogger();
-        return Slf4jEventLogger.builder()
+        return Slf4jEventLoggerFactory.builder()
                 .level(Level.INFO)
                 .path(traceLoggerConfig.getLogPath())
-                .name(traceLoggerConfig.getLogFileName())
                 .pattern(traceLoggerConfig.getPattern())
                 .maxFileSize(traceLoggerConfig.getMaxFileSize())
                 .maxHistory(traceLoggerConfig.getMaxHistory())
-                .totalSizeCap(traceLoggerConfig.getTotalSizeCap()).build();
+                .totalSizeCap(traceLoggerConfig.getTotalSizeCap()).buildLogger();
+    }
+
+    public Logger traceLogger() {
+        SmileBootProperties.TraceLoggerConfig traceLoggerConfig = smileBootProperties.getTraceLogger();
+        return Slf4jTraceLoggerFactory.builder()
+                .level(Level.INFO)
+                .path(traceLoggerConfig.getLogPath())
+                .pattern(traceLoggerConfig.getPattern())
+                .maxFileSize(traceLoggerConfig.getMaxFileSize())
+                .maxHistory(traceLoggerConfig.getMaxHistory())
+                .totalSizeCap(traceLoggerConfig.getTotalSizeCap()).buildLogger();
     }
 }

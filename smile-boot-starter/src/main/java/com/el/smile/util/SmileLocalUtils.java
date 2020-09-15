@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  *
  * @author eddie
  */
-public class LocalDataUtils {
+public class SmileLocalUtils {
 
     private static final ThreadLocal<Map<String, String>> SERVICE_INVOKE_INFO = new ThreadLocal<>();
 
@@ -22,11 +22,7 @@ public class LocalDataUtils {
     /**
      * 日志参数前缀
      */
-    private static final String LOGGER_PREFIX = "LOGGER";
-    /**
-     * 请求是否成功
-     */
-    private static final String LOGGER_IS_SUCCESSS = "LOGGER_IS_SUCCESS";
+    private static final String LOGGER_FEATURE = "LOGGER_FEATURE";
 
     public static String getTraceId() {
         checkIfNull();
@@ -49,15 +45,15 @@ public class LocalDataUtils {
 
     public static void addLoggerFeature(String key, String value) {
         checkIfNull();
-        SERVICE_INVOKE_INFO.get().put(LOGGER_PREFIX.concat(key), value);
+        SERVICE_INVOKE_INFO.get().put(LOGGER_FEATURE.concat(key), value);
     }
 
     public static void setIsSucess(boolean success) {
-        setTreadLocalField(LOGGER_IS_SUCCESSS, String.valueOf(success));
+        setTreadLocalField(getCaller(), String.valueOf(success));
     }
 
     public static Boolean getIsSuccess() {
-        String isSuccess = getUserDate(LOGGER_IS_SUCCESSS);
+        String isSuccess = getUserDate(getCaller());
         if (StringUtils.isBlank(isSuccess)) {
             return null;
         }
@@ -82,14 +78,26 @@ public class LocalDataUtils {
 
     private static Map<String, String> parseMapForFilterByOptional() {
         return Optional.ofNullable(SERVICE_INVOKE_INFO.get()).map(
-                (v) -> v.entrySet().stream()
-                        .filter((e) -> StringUtils.isNotBlank(e.getValue()))
-                        .filter((e) -> StringUtils.startsWith(e.getKey(), LOGGER_PREFIX))
+                map -> map.entrySet().stream()
+                        .filter(entry -> StringUtils.isNotBlank(entry.getValue()))
+                        .filter(entry -> StringUtils.startsWith(entry.getKey(), LOGGER_FEATURE))
+                        .peek(entry -> entry.setValue(entry.getValue().replaceFirst(LOGGER_FEATURE, "")))
                         .collect(Collectors.toMap(
                                 Map.Entry::getKey,
                                 Map.Entry::getValue
                         ))
         ).orElse(null);
+    }
+
+    private static String getCaller() {
+        StackTraceElement[] stackTrace = (new Throwable()).getStackTrace();
+        StackTraceElement targetStackTraceElement = stackTrace[stackTrace.length - 1];
+        return targetStackTraceElement.getClassName() +
+                '(' +
+                targetStackTraceElement.getMethodName() +
+                ':' +
+                targetStackTraceElement.getLineNumber() +
+                ")";
     }
 
 }

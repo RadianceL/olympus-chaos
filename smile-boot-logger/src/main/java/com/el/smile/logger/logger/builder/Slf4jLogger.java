@@ -1,4 +1,4 @@
-package com.el.smile.logger.logger;
+package com.el.smile.logger.logger.builder;
 
 import ch.qos.logback.classic.AsyncAppender;
 import ch.qos.logback.classic.Logger;
@@ -9,7 +9,6 @@ import ch.qos.logback.core.rolling.RollingFileAppender;
 import ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy;
 import ch.qos.logback.core.util.FileSize;
 import com.el.smile.logger.config.SmileLoggerConstants;
-import com.el.smile.logger.logger.builder.BaseLoggerBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.LoggerFactory;
 
@@ -17,21 +16,21 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 
 /**
- * 基础日志类
- * since 7/4/20
+ * slf4j logger构造器 <br/>
+ * since 2020/9/14
  *
- * @author eddie
+ * @author eddie.lys
  */
-public class Slf4jEventLogger extends BaseLoggerBuilder {
+public class Slf4jLogger extends BaseLoggerBuilder {
 
     private static final String ROLLING_PATTERN = ".%d{yyyy-MM-dd}.%i";
 
-    public static Slf4jEventLogger builder() {
-        return new Slf4jEventLogger();
+    public static Slf4jLogger builder() {
+        return new Slf4jLogger();
     }
 
     @Override
-    public Logger build() {
+    public Logger build(LoggerType loggerType) {
         String logFile = buildLogPath();
 
         LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
@@ -47,7 +46,7 @@ public class Slf4jEventLogger extends BaseLoggerBuilder {
         RollingFileAppender<ILoggingEvent> rollingAppender = new RollingFileAppender<>();
         rollingAppender.setContext(context);
         rollingAppender.setEncoder(encoder);
-        String logFilePath = logFile + File.separator + this.getLoggerName() + ".log";
+        String logFilePath = logFile + File.separator + loggerType.name().toLowerCase() + ".log";
         rollingAppender.setFile(logFilePath);
 
         // 滚动策略
@@ -99,4 +98,6 @@ public class Slf4jEventLogger extends BaseLoggerBuilder {
 
         throw new IllegalArgumentException("smile-boot logger config error: log path illegal");
     }
+
+
 }

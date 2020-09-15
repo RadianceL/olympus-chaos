@@ -2,7 +2,7 @@ package com.el.smile.interceptor;
 
 import com.el.smile.config.ApplicationConstants;
 import com.el.smile.util.TraceIdUtil;
-import com.el.smile.util.LocalDataUtils;
+import com.el.smile.util.SmileLocalUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -24,13 +24,13 @@ public class BaseTraceInterceptor implements HandlerInterceptor {
         if (StringUtils.isEmpty(tradeId)) {
             tradeId = TraceIdUtil.getTraceId();
         }
-        LocalDataUtils.setTraceId(tradeId);
+        SmileLocalUtils.setTraceId(tradeId);
         return true;
     }
 
     @Override
     public void afterCompletion(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler, Exception ex) {
-        response.addHeader(ApplicationConstants.HEADER_TRACE_ID, LocalDataUtils.getTraceId());
-        LocalDataUtils.clear();
+        response.addHeader(ApplicationConstants.HEADER_TRACE_ID, SmileLocalUtils.getTraceId());
+        SmileLocalUtils.clear();
     }
 }

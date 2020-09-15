@@ -21,7 +21,7 @@ public class CostTimeLoggerHandler implements EventHandler {
 
     @Override
     public int getOrder() {
-        return 5;
+        return 1;
     }
 
     @Override

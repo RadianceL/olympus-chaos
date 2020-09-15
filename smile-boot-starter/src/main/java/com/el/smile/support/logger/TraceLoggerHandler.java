@@ -8,7 +8,7 @@ import com.el.smile.logger.utils.PublicIpUtil;
 import com.el.smile.support.handler.EventHandler;
 import com.el.smile.support.management.ProcessHandlerManagement;
 import com.el.smile.support.model.EventContext;
-import com.el.smile.util.LocalDataUtils;
+import com.el.smile.util.SmileLocalUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -26,11 +26,11 @@ import java.util.Objects;
  * @author eddie
  */
 @Component
-public class TraceEventLoggerHandler implements EventHandler {
+public class TraceLoggerHandler implements EventHandler {
 
     @Override
     public int getOrder() {
-        return 5;
+        return 2;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class TraceEventLoggerHandler implements EventHandler {
         MethodSignature signature = (MethodSignature) point.getSignature();
         EventTrace annotation = signature.getMethod().getAnnotation(EventTrace.class);
 
-        loggerContext.setTraceId(LocalDataUtils.getTraceId());
+        loggerContext.setTraceId(SmileLocalUtils.getTraceId());
         loggerContext.setAppName(Environment.getInstance().getAppName());
         loggerContext.setEnv(Environment.getInstance().getEnvironment());
         loggerContext.setIp(PublicIpUtil.getPublicIpAddress());
@@ -70,7 +70,6 @@ public class TraceEventLoggerHandler implements EventHandler {
         MethodSignature signature = (MethodSignature) point.getSignature();
         EventTrace annotation = signature.getMethod().getAnnotation(EventTrace.class);
 
-        loggerContext.setSuccess(LocalDataUtils.getIsSuccess());
         eventContext.setLoggerType(annotation.loggerType());
 
         if (annotation.response()) {
