@@ -51,7 +51,7 @@ public class SmileLocalUtils {
         SERVICE_INVOKE_INFO.get().put(LOGGER_FEATURE.concat(key), value);
     }
 
-    public static void setIsSucess(boolean success) {
+    public static void setIsScucess(boolean success) {
         setTreadLocalField(getCaller(), String.valueOf(success));
     }
 
