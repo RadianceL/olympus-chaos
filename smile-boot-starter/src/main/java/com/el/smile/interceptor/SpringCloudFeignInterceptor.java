@@ -1,7 +1,7 @@
 package com.el.smile.interceptor;
 
 import com.el.smile.config.ApplicationConstants;
-import com.el.smile.util.SmileLocalUtils;
+import com.el.smile.logger.utils.SmileLocalUtils;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;

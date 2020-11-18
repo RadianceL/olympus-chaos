@@ -14,7 +14,6 @@ public class SmileEventLogger {
     private static final Logger log = SpringStaticContextHolder.getBean("eventLogger", Logger.class);
 
     public static void info() {
-        // TODO
     }
 
 

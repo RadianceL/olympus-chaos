@@ -26,10 +26,10 @@ public class SmileBootProperties {
          * 日志路径 支持classPath
          */
         private String logPath;
-//        /**
-//         * 日志文件名称
-//         */
-//        private String logFileName;
+        /**
+         * 是否获取公网IP *可能失效
+         */
+        private Boolean publicIp;
         /**
          * 日志格式 <br/>
          * 默认："%d{yyyy-MM-dd HH:mm:ss} - %msg%n

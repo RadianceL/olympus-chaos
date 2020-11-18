@@ -1,10 +1,13 @@
 package com.el.smile.logger.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.Inet4Address;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,6 +17,7 @@ import java.util.regex.Pattern;
  *
  * @author eddie
  */
+@Slf4j
 public class PublicIpUtil {
 
     private static final Pattern IP_PATTERN = Pattern.compile("\\d+.\\d+.\\d+.\\d+");
@@ -22,12 +26,27 @@ public class PublicIpUtil {
 
     private static final String PUBLIC_IP_ADDRESS;
 
+    private static final String LOCAL_IP_ADDRESS;
+
     static {
         PUBLIC_IP_ADDRESS = getIp();
+        log.info("application public ip address: [{}]", PUBLIC_IP_ADDRESS);
+        String localIpAddressTemp;
+        try {
+            localIpAddressTemp = Inet4Address.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            localIpAddressTemp = "UN-KNOW";
+        }
+        LOCAL_IP_ADDRESS = localIpAddressTemp;
+        log.info("application local ip address: [{}]", LOCAL_IP_ADDRESS);
     }
 
     public static String getPublicIpAddress() {
         return PUBLIC_IP_ADDRESS;
+    }
+
+    public static String getLocalIpAddress() {
+        return LOCAL_IP_ADDRESS;
     }
 
     private static String getIp() {

@@ -1,8 +1,8 @@
 package com.el.smile.interceptor;
 
 import com.el.smile.config.ApplicationConstants;
-import com.el.smile.util.TraceIdUtil;
-import com.el.smile.util.SmileLocalUtils;
+import com.el.smile.logger.utils.SmileLocalUtils;
+import com.el.smile.logger.utils.TraceIdUtil;
 import org.springframework.lang.NonNull;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;

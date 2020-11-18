@@ -1,4 +1,4 @@
-package com.el.smile.util;
+package com.el.smile.logger.utils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

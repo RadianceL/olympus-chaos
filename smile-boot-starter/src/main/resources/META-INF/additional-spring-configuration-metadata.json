@@ -16,6 +16,13 @@
       "defaultValue": ""
     },
     {
+      "name": "spring.smile-boot.trace-logger.public-ip",
+      "type": "java.lang.Boolean",
+      "description": "是否使用公网IP.",
+      "sourceType": "com.el.smile.config.SmileBootProperties$TraceLoggerConfig",
+      "defaultValue": false
+    },
+    {
       "name": "spring.smile-boot.trace-logger.log-file-name",
       "type": "java.lang.String",
       "description": "日志文件名.",
