@@ -24,7 +24,7 @@ import javax.annotation.PostConstruct;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class LoggerHandler implements EventHandler {
 
-    private final Logger eventLogger;
+    private final Logger traceLogger;
 
     private static final String DEFAULT_LOGGER_TEMPLATE = "TRACE LOG -" +
             "  traceId [{}]" +
@@ -52,10 +52,10 @@ public class LoggerHandler implements EventHandler {
         loggerContext.setFeatures(SmileLocalUtils.getUserLoggerFeature());
         switch (eventContext.getLoggerType()) {
             case JSON:
-                eventLogger.info(JSON.toJSONString(loggerContext));
+                traceLogger.info(JSON.toJSONString(loggerContext));
                 break;
             case FORMAT:
-                eventLogger.info(DEFAULT_LOGGER_TEMPLATE,
+                traceLogger.info(DEFAULT_LOGGER_TEMPLATE,
                         loggerContext.getTraceId(),
                         loggerContext.getAppName(),
                         loggerContext.getEnv(),

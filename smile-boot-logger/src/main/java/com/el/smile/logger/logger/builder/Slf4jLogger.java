@@ -99,5 +99,4 @@ public class Slf4jLogger extends BaseLoggerBuilder {
         throw new IllegalArgumentException("smile-boot logger config error: log path illegal");
     }
 
-
 }
