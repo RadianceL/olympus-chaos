@@ -6,6 +6,7 @@ import com.el.smile.interceptor.BaseTraceInterceptor;
 import com.el.smile.interceptor.SpringCloudFeignInterceptor;
 import com.el.smile.logger.logger.Slf4jEventLoggerFactory;
 import com.el.smile.logger.logger.Slf4jTraceLoggerFactory;
+import com.el.smile.logger.logger.builder.LoggerType;
 import com.el.smile.logger.utils.SmileLocalUtils;
 import com.el.smile.support.EventProcess;
 import com.el.smile.support.logger.CostTimeLoggerHandler;
@@ -94,9 +95,10 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
                 .level(Level.INFO)
                 .path(traceLoggerConfig.getLogPath())
                 .pattern(traceLoggerConfig.getPattern())
+                .name("event")
                 .maxFileSize(traceLoggerConfig.getMaxFileSize())
                 .maxHistory(traceLoggerConfig.getMaxHistory())
-                .totalSizeCap(traceLoggerConfig.getTotalSizeCap()).buildLogger();
+                .totalSizeCap(traceLoggerConfig.getTotalSizeCap()).build(LoggerType.EVENT_LOGGER);
     }
 
     public Logger traceLogger() {
@@ -105,8 +107,9 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
                 .level(Level.INFO)
                 .path(traceLoggerConfig.getLogPath())
                 .pattern(traceLoggerConfig.getPattern())
+                .name("trace")
                 .maxFileSize(traceLoggerConfig.getMaxFileSize())
                 .maxHistory(traceLoggerConfig.getMaxHistory())
-                .totalSizeCap(traceLoggerConfig.getTotalSizeCap()).buildLogger();
+                .totalSizeCap(traceLoggerConfig.getTotalSizeCap()).build(LoggerType.TRACE_LOGGER);
     }
 }
