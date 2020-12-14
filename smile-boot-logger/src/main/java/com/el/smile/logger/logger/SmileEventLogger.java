@@ -20,13 +20,13 @@ public class SmileEventLogger {
 
     private static final Logger eventLogger = SpringStaticContextHolder.getBean("eventLogger", Logger.class);
 
-    private static final String CLASS_PREFIX = "[{}.{}] line [{}]:";
+    private static final String CLASS_PREFIX = "{} - [{}.{}] line [{}]: ";
 
     public static void info(String info, Object... args) {
         if (StringUtils.isBlank(info)) {
             log.info(info, args);
         }
-        SmileLocalUtils.getTraceId();
+
         String message = fillCallClassInfo();
         info = message.concat(info);
         if (Objects.nonNull(eventLogger)) {
@@ -52,7 +52,8 @@ public class SmileEventLogger {
 
     private static String fillCallClassInfo() {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-        Object[] array = new Object[]{stackTrace[2].getClassName(), stackTrace[2].getMethodName(), stackTrace[2].getLineNumber()};
+        String traceId = SmileLocalUtils.getTraceId();
+        Object[] array = new Object[]{traceId, stackTrace[2].getClassName(), stackTrace[2].getMethodName(), stackTrace[2].getLineNumber()};
         return MessageFormatter.arrayFormat(CLASS_PREFIX, array).getMessage();
     }
 

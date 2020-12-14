@@ -6,6 +6,7 @@ import com.el.smile.logger.utils.TraceIdUtil;
 import org.springframework.lang.NonNull;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,12 +26,13 @@ public class BaseTraceInterceptor implements HandlerInterceptor {
             tradeId = TraceIdUtil.getTraceId();
         }
         SmileLocalUtils.setTraceId(tradeId);
+
+        response.addHeader(ApplicationConstants.HEADER_TRACE_ID, tradeId);
         return true;
     }
 
     @Override
     public void afterCompletion(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler, Exception ex) {
-        response.addHeader(ApplicationConstants.HEADER_TRACE_ID, SmileLocalUtils.getTraceId());
         SmileLocalUtils.clear();
     }
 }

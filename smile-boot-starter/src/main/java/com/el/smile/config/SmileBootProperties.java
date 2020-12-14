@@ -6,6 +6,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+import java.util.Optional;
+
 /**
  * since 7/11/20
  *
@@ -47,5 +50,32 @@ public class SmileBootProperties {
          * 总大小限制 默认2G
          */
         private Integer totalSizeCap;
+
+        public String getLogPathIfPresent() {
+            return logPath;
+        }
+
+        public Boolean getPublicIpIfPresent() {
+            if (Objects.isNull(this.publicIp)) {
+                return false;
+            }
+            return publicIp;
+        }
+
+        public String getPatternIfPresent() {
+            return pattern;
+        }
+
+        public Integer getMaxHistoryIfPresent() {
+            return maxHistory;
+        }
+
+        public Integer getMaxFileSizeIfPresent() {
+            return maxFileSize;
+        }
+
+        public Integer getTotalSizeCapIfPresent() {
+            return totalSizeCap;
+        }
     }
 }

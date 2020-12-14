@@ -48,7 +48,7 @@ public class TraceLoggerHandler implements EventHandler {
         loggerContext.setAppName(Environment.getInstance().getAppName());
         loggerContext.setEnv(Environment.getInstance().getEnvironment());
 
-        if (smileBootProperties.getTraceLogger().getPublicIp()) {
+        if (smileBootProperties.getTraceLogger().getPublicIpIfPresent()) {
             loggerContext.setIp(PublicIpUtil.getPublicIpAddress());
         }else {
             loggerContext.setIp(PublicIpUtil.getLocalIpAddress());
