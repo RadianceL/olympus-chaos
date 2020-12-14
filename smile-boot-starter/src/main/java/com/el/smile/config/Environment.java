@@ -23,27 +23,33 @@ public class Environment {
      * 环境名称
      */
     private String environment;
-
+    /**
+     * 是否开发
+     */
+    private boolean dev = false;
     /**
      * 是否日常
      */
-    private boolean daily;
+    private boolean daily = false;
 
     /**
      * 是否预发
      */
-    private boolean staging;
+    private boolean staging = false;
 
     /**
      * 是否线上
      */
-    private boolean prod;
+    private boolean prod = false;
 
     public Environment(String appName, EnvironmentEnum environment) {
         this.appName = appName;
         this.environment = environment.name();
         switch (environment) {
             case DAILY:
+                this.dev = true;
+                break;
+            case DEV:
                 this.daily = true;
                 break;
             case STAGING:

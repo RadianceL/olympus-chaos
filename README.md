@@ -50,6 +50,7 @@ public class EnvironmentTemplate {
 spring:
   profiles:
     # 配置运行环境 可选DAILY｜STAGING｜PROD，与application.yml多环境配置不冲突
+    # 如果环境配置不是DAILY｜STAGING｜PROD或有其他环境，可以在使用new Environment(applicationName, environment);来映射环境信息
     active: STAGING
   application:
     # 应用名称
@@ -119,6 +120,38 @@ JSON:
 }
 ```
 
+同时，traceId会返回给前端，放入header中。
+
+3. EventLogger 事件日志
+对某些需要埋点的重要节点，可以使用事件日志来记录。
+   
+```java
+/**
+ * since 2020/1/4
+ *
+ * @author eddie
+ */
+@Slf4j
+@RestController
+@RequirePermissions
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+public class TestConfigController {
+
+    @RequestMapping("/get")
+    @EventTrace(event = "测试", loggerType = LoggerType.FORMAT)
+    public String get() {
+        SmileEventLogger.info("测试");
+        return "SmileLocalUtils.getTraceId();";
+    }
+}
+```
+
+输出：
+```log
+2020-12-15 00:21:48 INFO  - 20201215002148-2706c6d56ffe4197a1e5c58d666596f7 - [com.el.smile.logger.logger.SmileEventLogger.info] line [30]: 测试
+```
+
+
 TODO 需求定义:
 
 2020-06-30
@@ -127,7 +160,6 @@ TODO 需求定义:
 
 2020-07-25
 - [x] bug修复： 对当前请求设置一次success将覆盖当前应用所有日志
-- [ ] 增加Dapper规范的RPC-id
 - [ ] trace日志中增加rpcId
 - [x] 增加业务日志
 

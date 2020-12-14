@@ -8,6 +8,10 @@ package com.el.smile.entity;
  */
 public enum EnvironmentEnum {
     /**
+     * 开发
+     */
+    DEV,
+    /**
      * 日常
      */
     DAILY,
