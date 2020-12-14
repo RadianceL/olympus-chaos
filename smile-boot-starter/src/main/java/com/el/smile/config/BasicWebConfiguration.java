@@ -8,6 +8,7 @@ import com.el.smile.logger.logger.Slf4jEventLoggerFactory;
 import com.el.smile.logger.logger.Slf4jTraceLoggerFactory;
 import com.el.smile.logger.logger.builder.LoggerType;
 import com.el.smile.logger.utils.SmileLocalUtils;
+import com.el.smile.logger.utils.SpringStaticContextHolder;
 import com.el.smile.support.EventProcess;
 import com.el.smile.support.logger.CostTimeLoggerHandler;
 import com.el.smile.support.logger.LoggerHandler;
@@ -86,6 +87,11 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
     @ConditionalOnClass(RequestInterceptor.class)
     public SpringCloudFeignInterceptor springCloudFeignInterceptor(){
         return new SpringCloudFeignInterceptor();
+    }
+
+    @Bean
+    public SpringStaticContextHolder prepareSpringStaticContextHolder() {
+        return new SpringStaticContextHolder();
     }
 
     @Bean("eventLogger")

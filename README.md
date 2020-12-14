@@ -15,7 +15,7 @@
 自动集成`smile-boot-logger`，对日志埋点输出跟踪日志
 
 引入`smile-boot-starter`后，自动支持traceId，可由前端传入`traceId`到后端，也可由首个接收到请求的服务自动生成
-支持`spring cloud feign`和`dubbo`, 不需要任何配置，引入jar即自动支持
+支持`spring cloud feign`和`dubbo`, 不侵入代码，引入jar即自动支持
 
 提供全链路traceId支持，前端或者首个被访问的服务生成，之后本次请求全链路通过`LocalDataUtils.getTraceId()`获取全局traceId
 
@@ -63,7 +63,7 @@ spring:
       # 日志文件名 event -> /root/admin/runtime/trace-test/log/event.log
       log-file-name: event
       # 2020-07-12 00:33:32 - msg
-      pattern: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+      pattern: "%d{yyyy-MM-dd HH:mm:ss} %msg%n"
 ```
 2. 对要埋点的方法添加注解
 ```java

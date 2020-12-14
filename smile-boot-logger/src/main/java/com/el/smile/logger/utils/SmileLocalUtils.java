@@ -51,11 +51,17 @@ public class SmileLocalUtils {
         SERVICE_INVOKE_INFO.get().put(LOGGER_FEATURE.concat(key), value);
     }
 
-    public static void setIsScucess(boolean success) {
+    /**
+     * 业务关键点配置，不阻塞业务，后续日志输出自动转换为error级别日志
+     * @param success
+     */
+    @Deprecated
+    public static void setIsSuccess(boolean success) {
         setTreadLocalField(getCaller(), String.valueOf(success));
     }
 
-    public static Boolean getIsSuccess() {
+    @Deprecated
+    public static Boolean getProcessIsSuccess() {
         String isSuccess = getUserDate(getCaller());
         if (StringUtils.isBlank(isSuccess)) {
             return null;
