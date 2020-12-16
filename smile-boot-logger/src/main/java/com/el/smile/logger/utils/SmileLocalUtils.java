@@ -18,6 +18,16 @@ public class SmileLocalUtils {
 
     private static final ThreadLocal<Map<String, String>> SERVICE_INVOKE_INFO = new ThreadLocal<>();
 
+    private static Object userData;
+
+    public static <T> void setCurrentUser(T userData) {
+        userData = userData;
+    }
+
+    public static <T> T getCurrentUser() {
+        return (T) userData;
+    }
+
     /**
      * 底层基础字段 - traceId
      */
@@ -26,6 +36,10 @@ public class SmileLocalUtils {
      * 日志参数前缀
      */
     private static final String LOGGER_FEATURE = "LOGGER_FEATURE";
+    /**
+     * 关键帧处理结果前缀
+     */
+    private static final String KEY_FRAMES_PROCESSING_RESULTS = "KEY_FRAMES_PROCESSING_RESULTS";
 
     public static String getTraceId() {
         checkIfNull();
@@ -53,24 +67,26 @@ public class SmileLocalUtils {
 
     /**
      * 业务关键点配置，不阻塞业务，后续日志输出自动转换为error级别日志
-     * @param success
+     * @param success 关键点是否成功
      */
-    @Deprecated
     public static void setIsSuccess(boolean success) {
-        setTreadLocalField(getCaller(), String.valueOf(success));
+        setTreadLocalField(KEY_FRAMES_PROCESSING_RESULTS, String.valueOf(success));
     }
 
-    @Deprecated
+    /**
+     * 全流程处理是否成功
+     * @return  关键点是否成功
+     */
     public static Boolean getProcessIsSuccess() {
-        String isSuccess = getUserDate(getCaller());
+        String isSuccess = getUserDate(KEY_FRAMES_PROCESSING_RESULTS);
         if (StringUtils.isBlank(isSuccess)) {
-            return null;
+            // 关键点未配置 默认成功
+            return true;
         }
-
         return Boolean.valueOf(isSuccess);
     }
 
-    public static Map<String, String> getUserLoggerFeature () {
+    public static Map<String, String> getUserLoggerFeature() {
         return parseMapForFilterByOptional();
     }
 

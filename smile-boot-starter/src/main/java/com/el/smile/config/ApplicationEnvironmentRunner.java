@@ -2,8 +2,6 @@ package com.el.smile.config;
 
 import com.el.smile.entity.EnvironmentEnum;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;

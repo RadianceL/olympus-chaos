@@ -50,7 +50,7 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
     /**
      * 应用环境
      * 默认激活 「spring.profiles.active， spring.application.name」
-     * @return  {@link Environment 激活后获取Environment实例}
+     * @return  {@link com.el.smile.config.Environment 激活后获取Environment实例}
      */
     @Bean
     public ApplicationEnvironmentRunner application() {
@@ -99,9 +99,9 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
         SmileBootProperties.TraceLoggerConfig traceLoggerConfig = smileBootProperties.getTraceLogger();
         return Slf4jEventLoggerFactory.builder()
                 .level(Level.INFO)
-                .path(traceLoggerConfig.getLogPath())
-                .pattern(traceLoggerConfig.getPattern())
-                .name("event")
+                .path(smileBootProperties.getLogPathIfPresent())
+                .pattern(traceLoggerConfig.getPatternIfPresent())
+                .name("event-log")
                 .maxFileSize(traceLoggerConfig.getMaxFileSize())
                 .maxHistory(traceLoggerConfig.getMaxHistory())
                 .totalSizeCap(traceLoggerConfig.getTotalSizeCap()).build(LoggerType.EVENT_LOGGER);
@@ -111,9 +111,9 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
         SmileBootProperties.TraceLoggerConfig traceLoggerConfig = smileBootProperties.getTraceLogger();
         return Slf4jTraceLoggerFactory.builder()
                 .level(Level.INFO)
-                .path(traceLoggerConfig.getLogPath())
+                .path(smileBootProperties.getLogPathIfPresent())
                 .pattern(traceLoggerConfig.getPattern())
-                .name("trace")
+                .name("trace-log")
                 .maxFileSize(traceLoggerConfig.getMaxFileSize())
                 .maxHistory(traceLoggerConfig.getMaxHistory())
                 .totalSizeCap(traceLoggerConfig.getTotalSizeCap()).build(LoggerType.TRACE_LOGGER);
