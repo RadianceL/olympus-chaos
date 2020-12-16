@@ -96,7 +96,7 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
 
     @Bean("eventLogger")
     public Logger eventLogger() {
-        SmileBootProperties.TraceLoggerConfig traceLoggerConfig = smileBootProperties.getTraceLogger();
+        SmileBootProperties.TraceLoggerConfig traceLoggerConfig = smileBootProperties.getEventLogger();
         return Slf4jEventLoggerFactory.builder()
                 .level(Level.INFO)
                 .path(smileBootProperties.getLogPathIfPresent())

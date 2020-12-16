@@ -31,7 +31,7 @@ public class Slf4jLogger extends BaseLoggerBuilder {
 
     @Override
     public Logger build(LoggerType loggerType) {
-        String logFile = buildLogPath();
+        String logFile = buildLogPath(loggerType);
 
         LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
         Logger logger = (Logger) LoggerFactory.getLogger(this.getLoggerName());
@@ -77,6 +77,21 @@ public class Slf4jLogger extends BaseLoggerBuilder {
         logger.addAppender(asyncAppender);
 
         return logger;
+    }
+
+    private String buildLogPath(LoggerType loggerType) {
+        String path = buildLogPath();
+        switch (loggerType) {
+            case EVENT_LOGGER:
+                String eventLoggerFolder = LoggerType.EVENT_LOGGER.name().toLowerCase();
+                return path.concat(File.separator).concat(eventLoggerFolder);
+            case TRACE_LOGGER:
+                String traceLoggerFolder = LoggerType.TRACE_LOGGER.name().toLowerCase();
+                return path.concat(File.separator).concat(traceLoggerFolder);
+            default:
+                break;
+        }
+        throw new IllegalArgumentException("smile-boot logger config error: log path illegal");
     }
 
     private String buildLogPath() {

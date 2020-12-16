@@ -30,11 +30,15 @@ public class SmileBootProperties {
      */
     private String logPath;
 
-    private static final String DEFAULT_LOG_PATH = "relative:trace-log";
+    private static final String DEFAULT_LOG_PATH = "relative:application-log";
 
     private static final String DEFAULT_PATTERN = "%d{yyyy-MM-dd HH:mm:ss} %-5level - %msg%n";
 
     private static final Integer DEFAULT_MAX_HISTORY = 7;
+
+    private static final Integer DEFAULT_FILE_SIZE = 300;
+
+    private static final Integer DEFAULT_TOTAL_SIZE_CAP = 2048;
 
     @NestedConfigurationProperty
     private final TraceLoggerConfig traceLogger = new TraceLoggerConfig();
@@ -51,7 +55,7 @@ public class SmileBootProperties {
 
     public Boolean getPublicIpIfPresent() {
         if (Objects.isNull(this.publicIp)) {
-            return false;
+            return Boolean.FALSE;
         }
         return publicIp;
     }
@@ -68,11 +72,11 @@ public class SmileBootProperties {
          */
         private Integer maxHistory;
         /**
-         * 单个文件最大容量 默认300MB
+         * 单个文件最大容量 单位MB
          */
         private Integer maxFileSize;
         /**
-         * 总大小限制 默认2G
+         * 总大小限制 单位MB 默认2G
          */
         private Integer totalSizeCap;
 
@@ -91,10 +95,16 @@ public class SmileBootProperties {
         }
 
         public Integer getMaxFileSizeIfPresent() {
+            if (Objects.isNull(maxFileSize)) {
+                return DEFAULT_FILE_SIZE;
+            }
             return maxFileSize;
         }
 
         public Integer getTotalSizeCapIfPresent() {
+            if (Objects.isNull(totalSizeCap)) {
+                return DEFAULT_TOTAL_SIZE_CAP;
+            }
             return totalSizeCap;
         }
     }

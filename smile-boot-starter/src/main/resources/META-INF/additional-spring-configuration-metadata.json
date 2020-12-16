@@ -9,25 +9,18 @@
   ],
   "properties": [
     {
-      "name": "spring.smile-boot.trace-logger.log-path",
+      "name": "spring.smile-boot.log-path",
       "type": "java.lang.String",
       "description": "日志路径.",
       "sourceType": "com.el.smile.config.SmileBootProperties$TraceLoggerConfig",
-      "defaultValue": ""
+      "defaultValue": "relative:application-log"
     },
     {
-      "name": "spring.smile-boot.trace-logger.public-ip",
+      "name": "spring.smile-boot.public-ip",
       "type": "java.lang.Boolean",
       "description": "是否使用公网IP.",
       "sourceType": "com.el.smile.config.SmileBootProperties$TraceLoggerConfig",
       "defaultValue": false
-    },
-    {
-      "name": "spring.smile-boot.trace-logger.log-file-name",
-      "type": "java.lang.String",
-      "description": "日志文件名.",
-      "sourceType": "com.el.smile.config.SmileBootProperties$TraceLoggerConfig",
-      "defaultValue": "eventTrace"
     },
     {
       "name": "spring.smile-boot.trace-logger.pattern",
@@ -40,19 +33,50 @@
       "name": "spring.smile-boot.trace-logger.max-history",
       "type": "java.lang.Integer",
       "description": "日志保存天数.",
-      "sourceType": "com.el.smile.config.SmileBootProperties$TraceLoggerConfig"
+      "sourceType": "com.el.smile.config.SmileBootProperties$TraceLoggerConfig",
+      "defaultValue": 7
     },
     {
       "name": "spring.smile-boot.trace-logger.max-file-size",
       "type": "java.lang.Integer",
       "description": "单个文件最大容量.",
-      "sourceType": "com.el.smile.config.SmileBootProperties$TraceLoggerConfig"
+      "sourceType": "com.el.smile.config.SmileBootProperties$TraceLoggerConfig",
+      "defaultValue": 300
     },
     {
       "name": "spring.smile-boot.trace-logger.total-size-cap",
       "type": "java.lang.Integer",
       "description": "日志总最大容量.",
-      "sourceType": "com.el.smile.config.SmileBootProperties$TraceLoggerConfig"
+      "sourceType": "com.el.smile.config.SmileBootProperties$TraceLoggerConfig",
+      "defaultValue": 2048
+    },
+    {
+      "name": "spring.smile-boot.event-logger.pattern",
+      "type": "java.lang.String",
+      "description": "日志输出格式.",
+      "sourceType": "com.el.smile.config.SmileBootProperties$TraceLoggerConfig",
+      "defaultValue": "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    },
+    {
+      "name": "spring.smile-boot.event-logger.max-history",
+      "type": "java.lang.Integer",
+      "description": "日志保存天数.",
+      "sourceType": "com.el.smile.config.SmileBootProperties$TraceLoggerConfig",
+      "defaultValue": 7
+    },
+    {
+      "name": "spring.smile-boot.event-logger.max-file-size",
+      "type": "java.lang.Integer",
+      "description": "单个文件最大容量.",
+      "sourceType": "com.el.smile.config.SmileBootProperties$TraceLoggerConfig",
+      "defaultValue": 300
+    },
+    {
+      "name": "spring.smile-boot.event-logger.total-size-cap",
+      "type": "java.lang.Integer",
+      "description": "日志总最大容量.",
+      "sourceType": "com.el.smile.config.SmileBootProperties$TraceLoggerConfig",
+      "defaultValue": 2048
     }
   ],
   "hints": [
