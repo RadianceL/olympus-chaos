@@ -71,7 +71,7 @@ public class SmileEventLogger {
     private static String fillCallClassInfo() {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         String traceId = SmileLocalUtils.getTraceId();
-        Object[] array = new Object[]{traceId, stackTrace[2].getClassName(), stackTrace[2].getMethodName(), stackTrace[2].getLineNumber()};
+        Object[] array = new Object[]{traceId, stackTrace[3].getClassName(), stackTrace[3].getMethodName(), stackTrace[3].getLineNumber()};
         return MessageFormatter.arrayFormat(CLASS_PREFIX, array).getMessage();
     }
 
