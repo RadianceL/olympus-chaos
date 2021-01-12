@@ -17,12 +17,16 @@ import feign.RequestInterceptor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.io.File;
 
 /**
  * 自动配置中心
@@ -34,6 +38,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class BasicWebConfiguration implements WebMvcConfigurer{
+
+    @Value("${spring.application.name}")
+    private String applicationName;
 
     private final SmileBootProperties smileBootProperties;
 
@@ -68,13 +75,15 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
     }
 
     @Bean
-    public LoggerHandler loggerHandler() {
-        return new LoggerHandler(traceLogger());
+    @Qualifier("traceLogger")
+    public LoggerHandler loggerHandler(Logger traceLogger) {
+        return new LoggerHandler(traceLogger);
     }
 
     @Bean
-    public EventProcess eventProcess() {
-        return new EventProcess();
+    @Qualifier("traceLogger")
+    public EventProcess eventProcess(Logger traceLogger) {
+        return new EventProcess(traceLogger);
     }
 
     /**
@@ -99,7 +108,7 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
         SmileBootProperties.TraceLoggerConfig traceLoggerConfig = smileBootProperties.getEventLogger();
         return Slf4jEventLoggerFactory.builder()
                 .level(Level.INFO)
-                .path(smileBootProperties.getLogPathIfPresent())
+                .path(smileBootProperties.getLogPathIfPresent().concat(File.separator).concat(applicationName))
                 .pattern(traceLoggerConfig.getPatternIfPresent())
                 .name("event-log")
                 .maxFileSize(traceLoggerConfig.getMaxFileSizeIfPresent())
@@ -107,11 +116,12 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
                 .totalSizeCap(traceLoggerConfig.getTotalSizeCap()).build(LoggerType.EVENT_LOGGER);
     }
 
+    @Bean("traceLogger")
     public Logger traceLogger() {
         SmileBootProperties.TraceLoggerConfig traceLoggerConfig = smileBootProperties.getTraceLogger();
         return Slf4jTraceLoggerFactory.builder()
                 .level(Level.INFO)
-                .path(smileBootProperties.getLogPathIfPresent())
+                .path(smileBootProperties.getLogPathIfPresent().concat(File.separator).concat(applicationName))
                 .pattern(traceLoggerConfig.getPattern())
                 .name("trace-log")
                 .maxFileSize(traceLoggerConfig.getMaxFileSizeIfPresent())

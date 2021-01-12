@@ -17,9 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 花费时间统计处理器
@@ -66,6 +69,12 @@ public class TraceLoggerHandler implements EventHandler {
             Object[] args = point.getArgs();
             if (Objects.nonNull(args) && args.length > 0) {
                 List<Object> objects = Arrays.asList(args);
+                objects = objects.stream().filter(e -> {
+                    if (e instanceof HttpServletResponse) {
+                        return false;
+                    }
+                    return !(e instanceof HttpServletRequest);
+                }).collect(Collectors.toList());
                 String parameters = JSON.toJSONString(objects);
                 loggerContext.setParameter(parameters);
             } else {
