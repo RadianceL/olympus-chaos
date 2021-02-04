@@ -18,14 +18,16 @@ public class SmileLocalUtils {
 
     private static final ThreadLocal<Map<String, String>> SERVICE_INVOKE_INFO = new ThreadLocal<>();
 
+    private static final ThreadLocal<Object> USER_INFO = new ThreadLocal<>();
+
     private static Object userData;
 
     public static <T> void setCurrentUser(T userData) {
-        userData = userData;
+        USER_INFO.set(userData);
     }
 
     public static <T> T getCurrentUser() {
-        return (T) userData;
+        return (T) USER_INFO.get();
     }
 
     /**
@@ -98,6 +100,7 @@ public class SmileLocalUtils {
     }
 
     public static void clear() {
+        USER_INFO.remove();
         SERVICE_INVOKE_INFO.remove();
     }
 

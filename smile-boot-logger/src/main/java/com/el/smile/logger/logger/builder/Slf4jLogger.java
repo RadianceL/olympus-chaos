@@ -52,7 +52,7 @@ public class Slf4jLogger extends BaseLoggerBuilder {
         // 滚动策略
         SizeAndTimeBasedRollingPolicy<?> rollingPolicy = new SizeAndTimeBasedRollingPolicy<>();
         rollingPolicy.setContext(context);
-        rollingPolicy.setFileNamePattern(logFile + ROLLING_PATTERN);
+        rollingPolicy.setFileNamePattern(logFile + File.separator + loggerType.name().toLowerCase() + File.separator + "history" + ROLLING_PATTERN + ".log");
         rollingPolicy.setMaxHistory(this.getMaxHistoryWithDefault());
         rollingPolicy.setMaxFileSize(FileSize.valueOf(this.getMaxFileSizeWithDefault() + "mb"));
         rollingPolicy.setTotalSizeCap(FileSize.valueOf(this.getTotalSizeCapWithDefault() + "mb"));
