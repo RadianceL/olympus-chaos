@@ -100,10 +100,12 @@ public class Slf4jLogger extends BaseLoggerBuilder {
         String logPath = StringUtils.trim(StringUtils.substring(logBasePath, index));
         if (StringUtils.startsWith(logBasePath, SmileLoggerConstants.RELATIVE)) {
             String property = System.getProperty("user.dir");
+            File targetPath = new File(property);
+
             if (StringUtils.startsWith(logPath, File.separator)) {
-                return property.concat(logPath);
+                return targetPath.getParent().concat(logPath);
             }
-            return property.concat(File.separator).concat(logPath);
+            return targetPath.getParent().concat(File.separator).concat(logPath);
         }else if (StringUtils.startsWith(logBasePath, SmileLoggerConstants.ABSOLUTE)) {
             if (StringUtils.startsWith(logPath, File.separator)) {
                 return logPath;
