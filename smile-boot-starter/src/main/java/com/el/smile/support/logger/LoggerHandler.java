@@ -1,6 +1,7 @@
 package com.el.smile.support.logger;
 
 import com.alibaba.fastjson.JSON;
+import com.el.smile.config.Environment;
 import com.el.smile.logger.event.model.EventLoggerContext;
 import com.el.smile.logger.utils.SmileLocalUtils;
 import com.el.smile.support.handler.EventHandler;
@@ -50,27 +51,28 @@ public class LoggerHandler implements EventHandler {
     public void postInvoke(EventContext eventContext, ProceedingJoinPoint point) {
         EventLoggerContext loggerContext = eventContext.getLoggerContext();
         loggerContext.setFeatures(SmileLocalUtils.getUserLoggerFeature());
-        switch (eventContext.getLoggerType()) {
-            case JSON:
-                traceLogger.info(JSON.toJSONString(loggerContext));
-                break;
-            case FORMAT:
-                traceLogger.info(DEFAULT_LOGGER_TEMPLATE,
-                        loggerContext.getTraceId(),
-                        loggerContext.getAppName(),
-                        loggerContext.getEnv(),
-                        loggerContext.getIp(),
-                        loggerContext.getEvent(),
-                        loggerContext.getMethod(),
-                        loggerContext.getCostTime(),
-                        loggerContext.getParameter(),
-                        loggerContext.getResult(),
-                        loggerContext.getFeatures());
-                break;
-            default:
-                break;
+        if (!Environment.getInstance().isDaily() && !Environment.getInstance().isDev()) {
+            switch (eventContext.getLoggerType()) {
+                case JSON:
+                    traceLogger.info(JSON.toJSONString(loggerContext));
+                    break;
+                case FORMAT:
+                    traceLogger.info(DEFAULT_LOGGER_TEMPLATE,
+                            loggerContext.getTraceId(),
+                            loggerContext.getAppName(),
+                            loggerContext.getEnv(),
+                            loggerContext.getIp(),
+                            loggerContext.getEvent(),
+                            loggerContext.getMethod(),
+                            loggerContext.getCostTime(),
+                            loggerContext.getParameter(),
+                            loggerContext.getResult(),
+                            loggerContext.getFeatures());
+                    break;
+                default:
+                    break;
+            }
         }
-
     }
 
     @PostConstruct
