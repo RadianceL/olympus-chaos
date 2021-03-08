@@ -10,9 +10,9 @@ public enum LoggerType {
     /**
      * 事件日志
      */
-    EVENT_LOGGER,
+    EVENT,
     /**
      * trace日志
      */
-    TRACE_LOGGER
+    TRACE
 }

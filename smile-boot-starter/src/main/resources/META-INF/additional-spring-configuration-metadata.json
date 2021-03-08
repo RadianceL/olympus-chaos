@@ -13,7 +13,7 @@
       "type": "java.lang.String",
       "description": "日志路径.",
       "sourceType": "com.el.smile.config.SmileBootProperties$TraceLoggerConfig",
-      "defaultValue": "relative:application-log"
+      "defaultValue": "relative:application"
     },
     {
       "name": "spring.smile-boot.public-ip",

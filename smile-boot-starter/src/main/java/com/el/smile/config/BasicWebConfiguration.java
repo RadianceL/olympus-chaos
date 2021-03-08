@@ -113,7 +113,7 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
                 .name("event-log")
                 .maxFileSize(traceLoggerConfig.getMaxFileSizeIfPresent())
                 .maxHistory(traceLoggerConfig.getMaxHistoryIfPresent())
-                .totalSizeCap(traceLoggerConfig.getTotalSizeCap()).build(LoggerType.EVENT_LOGGER);
+                .totalSizeCap(traceLoggerConfig.getTotalSizeCap()).build(LoggerType.EVENT);
     }
 
     @Bean("traceLogger")
@@ -126,6 +126,6 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
                 .name("trace-log")
                 .maxFileSize(traceLoggerConfig.getMaxFileSizeIfPresent())
                 .maxHistory(traceLoggerConfig.getMaxHistoryIfPresent())
-                .totalSizeCap(traceLoggerConfig.getTotalSizeCap()).build(LoggerType.TRACE_LOGGER);
+                .totalSizeCap(traceLoggerConfig.getTotalSizeCap()).build(LoggerType.TRACE);
     }
 }

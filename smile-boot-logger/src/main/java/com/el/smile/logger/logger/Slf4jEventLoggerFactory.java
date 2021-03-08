@@ -14,7 +14,7 @@ public class Slf4jEventLoggerFactory extends Slf4jLogger {
 
     @Override
     public Logger buildLogger() {
-        return super.build(LoggerType.EVENT_LOGGER);
+        return super.build(LoggerType.EVENT);
     }
 
 }

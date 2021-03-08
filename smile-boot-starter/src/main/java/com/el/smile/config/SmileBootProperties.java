@@ -30,7 +30,7 @@ public class SmileBootProperties {
      */
     private String logPath;
 
-    private static final String DEFAULT_LOG_PATH = "relative:application-log";
+    private static final String DEFAULT_LOG_PATH = "relative:application";
 
     private static final String DEFAULT_PATTERN = "%d{yyyy-MM-dd HH:mm:ss} %-5level - %msg%n";
 

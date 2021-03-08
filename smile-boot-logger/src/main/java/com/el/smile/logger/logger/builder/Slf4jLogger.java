@@ -82,11 +82,11 @@ public class Slf4jLogger extends BaseLoggerBuilder {
     private String buildLogPath(LoggerType loggerType) {
         String path = buildLogPath();
         switch (loggerType) {
-            case EVENT_LOGGER:
-                String eventLoggerFolder = LoggerType.EVENT_LOGGER.name().toLowerCase();
+            case EVENT:
+                String eventLoggerFolder = LoggerType.EVENT.name().toLowerCase();
                 return path.concat(File.separator).concat(eventLoggerFolder);
-            case TRACE_LOGGER:
-                String traceLoggerFolder = LoggerType.TRACE_LOGGER.name().toLowerCase();
+            case TRACE:
+                String traceLoggerFolder = LoggerType.TRACE.name().toLowerCase();
                 return path.concat(File.separator).concat(traceLoggerFolder);
             default:
                 break;

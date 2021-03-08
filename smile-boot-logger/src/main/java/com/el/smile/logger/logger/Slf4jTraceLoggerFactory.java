@@ -14,7 +14,7 @@ public class Slf4jTraceLoggerFactory extends Slf4jLogger {
 
     @Override
     public Logger buildLogger() {
-        return super.build(LoggerType.TRACE_LOGGER);
+        return super.build(LoggerType.TRACE);
     }
 
 }
