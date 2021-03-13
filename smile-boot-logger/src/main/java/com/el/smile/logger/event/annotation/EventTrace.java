@@ -28,11 +28,6 @@ public @interface EventTrace {
      */
     boolean response() default true;
 
-    /**
-     * 权限
-     */
-    String[] permissions() default {};
-
     LoggerType loggerType() default LoggerType.FORMAT;
 
     String key() default "";
