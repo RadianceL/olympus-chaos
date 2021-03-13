@@ -34,9 +34,6 @@ public class SmileEventLogger {
      * @param args  自定义模板的参数
      */
     public static void printInfo(String info, Object... args) {
-        if (StringUtils.isBlank(info)) {
-            log.info(info, args);
-        }
         String message = fillCallClassInfo();
         info = message.concat(info);
         if (Objects.nonNull(eventLogger)) {
@@ -56,9 +53,6 @@ public class SmileEventLogger {
      * @param args  自定义模板的参数
      */
     public static void error(String info, Object... args) {
-        if (StringUtils.isBlank(info)) {
-            log.info(info, args);
-        }
         String message = fillCallClassInfo();
         info = message.concat(info);
         if (Objects.nonNull(eventLogger)) {

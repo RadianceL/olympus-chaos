@@ -16,9 +16,7 @@ import java.lang.annotation.*;
 public @interface EventTrace {
 
     /**
-     * 方法描述
-     *
-     * @return
+     * 事件描述
      */
     String event() default "";
     /**
@@ -29,6 +27,11 @@ public @interface EventTrace {
      * 返回值
      */
     boolean response() default true;
+
+    /**
+     * 权限
+     */
+    String[] permissions() default {};
 
     LoggerType loggerType() default LoggerType.FORMAT;
 
