@@ -28,16 +28,16 @@ public class LoggerHandler implements EventHandler {
     private final Logger traceLogger;
 
     private static final String DEFAULT_LOGGER_TEMPLATE = "TRACE LOG -" +
-            "  traceId [{}]" +
-            ", appName [{}]" +
-            ", env [{}]" +
-            ", ip [{}]" +
-            ", event [{}]" +
-            ", method [{}]" +
-            ", costTime [{}]" +
-            ", parameter [{}]" +
-            ", response [{}]" +
-            ", features [{}]";
+            "  traceId <{}>" +
+            ", appName <{}>" +
+            ", env <{}>" +
+            ", ip <{}>" +
+            ", event <{}>" +
+            ", method <{}>" +
+            ", costTime <{}>" +
+            ", parameter {}" +
+            ", response <{}>" +
+            ", features <{}>";
 
     @Override
     public int getOrder() {
