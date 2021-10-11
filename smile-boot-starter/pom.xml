@@ -7,11 +7,11 @@
     <parent>
         <groupId>com.el</groupId>
         <artifactId>smile-boot</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.0-SMILE-BOOT-SNAPSHOT</version>
     </parent>
 
     <artifactId>smile-boot-starter</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SMILE-BOOT-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
@@ -55,7 +55,7 @@
         <dependency>
             <groupId>com.el</groupId>
             <artifactId>smile-boot-logger</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>1.0.0-SMILE-BOOT-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

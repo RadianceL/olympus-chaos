@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.Objects;
 
 /**
  * 花费时间控制器
@@ -34,6 +35,7 @@ public class LoggerHandler implements EventHandler {
             ", ip <{}>" +
             ", event <{}>" +
             ", method <{}>" +
+            ", accessUser <{}>" +
             ", costTime <{}>" +
             ", parameter {}" +
             ", response <{}>" +
@@ -64,6 +66,7 @@ public class LoggerHandler implements EventHandler {
                             loggerContext.getIp(),
                             loggerContext.getEvent(),
                             loggerContext.getMethod(),
+                            Objects.nonNull(SmileLocalUtils.getCurrentUser()) ? SmileLocalUtils.getCurrentUser().getUserId() : "null",
                             loggerContext.getCostTime(),
                             loggerContext.getParameter(),
                             loggerContext.getResult(),

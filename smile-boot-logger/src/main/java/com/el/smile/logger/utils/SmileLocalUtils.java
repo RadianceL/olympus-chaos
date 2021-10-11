@@ -1,5 +1,6 @@
 package com.el.smile.logger.utils;
 
+import com.el.smile.logger.user.UserBaseInfo;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
@@ -26,7 +27,7 @@ public class SmileLocalUtils {
         USER_INFO.set(userData);
     }
 
-    public static <T> T getCurrentUser() {
+    public static <T extends UserBaseInfo> T getCurrentUser() {
         return (T) USER_INFO.get();
     }
 
