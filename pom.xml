@@ -6,7 +6,7 @@
     <packaging>pom</packaging>
 
     <groupId>com.el</groupId>
-    <artifactId>smile-boot</artifactId>
+    <artifactId>smile-monitor-starter</artifactId>
     <version>1.0.0-SMILE-BOOT</version>
 
     <properties>
@@ -15,8 +15,9 @@
     </properties>
 
     <modules>
-        <module>smile-boot-starter</module>
-        <module>smile-boot-logger</module>
+        <module>smile-monitor-auto-config</module>
+        <module>smile-monitor-base-logger</module>
+        <module>smile-monitor-prism</module>
     </modules>
 
     <dependencyManagement>

@@ -6,11 +6,11 @@
 
     <parent>
         <groupId>com.el</groupId>
-        <artifactId>smile-boot</artifactId>
+        <artifactId>smile-monitor-starter</artifactId>
         <version>1.0.0-SMILE-BOOT</version>
     </parent>
 
-    <artifactId>smile-boot-logger</artifactId>
+    <artifactId>smile-monitor-base-logger</artifactId>
     <version>1.0.0-SMILE-BOOT</version>
 
     <dependencies>
