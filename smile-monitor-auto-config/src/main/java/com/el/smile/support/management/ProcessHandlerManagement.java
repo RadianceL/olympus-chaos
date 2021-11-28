@@ -38,9 +38,12 @@ public class ProcessHandlerManagement {
         EVENT_HANDLER.sort(Comparator.comparingInt(EventHandler::getOrder));
     }
 
+    /**
+     * 获取事件管理器
+     * @return      事件管理器列表
+     */
     public static List<EventHandler> getEventHandler() {
         return EVENT_HANDLER;
     }
-
 
 }

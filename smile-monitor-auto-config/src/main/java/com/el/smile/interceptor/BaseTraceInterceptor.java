@@ -26,7 +26,6 @@ public class BaseTraceInterceptor implements HandlerInterceptor {
             tradeId = TraceIdUtil.getTraceId();
         }
         SmileLocalUtils.setTraceId(tradeId);
-
         response.addHeader(ApplicationConstants.HEADER_TRACE_ID, tradeId);
         return true;
     }

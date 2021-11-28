@@ -12,5 +12,4 @@ public interface Grabber<T> {
      * @return  信息
      */
     T getInfo();
-
 }

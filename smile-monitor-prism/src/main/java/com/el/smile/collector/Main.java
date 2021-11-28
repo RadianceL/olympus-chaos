@@ -1,7 +1,9 @@
 package com.el.smile.collector;
 
+import com.alibaba.fastjson.JSON;
 import com.el.smile.monitor.SystemRuntimeGrabber;
 import com.el.smile.monitor.core.Grabber;
+import com.el.smile.monitor.data.SystemRuntime;
 
 /**
  * @author eddie.lys
@@ -9,7 +11,7 @@ import com.el.smile.monitor.core.Grabber;
  */
 public class Main {
     public static void main(String[] args) {
-        Grabber<String> grabber = new SystemRuntimeGrabber();
-        System.out.println(grabber.getInfo());
+        Grabber<SystemRuntime> grabber = new SystemRuntimeGrabber();
+        System.out.println(JSON.toJSONString(grabber.getInfo()));
     }
 }

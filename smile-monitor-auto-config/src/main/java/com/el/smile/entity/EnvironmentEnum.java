@@ -23,7 +23,6 @@ public enum EnvironmentEnum {
      * 生产
      */
     PROD,
-
     /**
      * 未知
      */
