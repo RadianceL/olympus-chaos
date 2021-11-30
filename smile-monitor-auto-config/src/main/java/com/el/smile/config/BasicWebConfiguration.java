@@ -111,6 +111,7 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
                 .path(smileBootProperties.getLogPathIfPresent().concat(File.separator))
                 .pattern(traceLoggerConfig.getPatternIfPresent())
                 .name("event-log")
+                .isLocalEnv(Environment.getInstance().isDaily())
                 .maxFileSize(traceLoggerConfig.getMaxFileSizeIfPresent())
                 .maxHistory(traceLoggerConfig.getMaxHistoryIfPresent())
                 .totalSizeCap(traceLoggerConfig.getTotalSizeCap()).build(LoggerType.EVENT);
@@ -124,6 +125,7 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
                 .path(smileBootProperties.getLogPathIfPresent().concat(File.separator))
                 .pattern(traceLoggerConfig.getPattern())
                 .name("trace-log")
+                .isLocalEnv(Environment.getInstance().isDaily())
                 .maxFileSize(traceLoggerConfig.getMaxFileSizeIfPresent())
                 .maxHistory(traceLoggerConfig.getMaxHistoryIfPresent())
                 .totalSizeCap(traceLoggerConfig.getTotalSizeCap()).build(LoggerType.TRACE);

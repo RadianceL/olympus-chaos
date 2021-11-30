@@ -35,7 +35,10 @@ public class Slf4jLogger extends BaseLoggerBuilder {
 
         LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
         Logger logger = (Logger) LoggerFactory.getLogger(this.getLoggerName());
-
+        // 本地环境不输出文件
+        if (this.isLocalEnv()) {
+            return logger;
+        }
         PatternLayoutEncoder encoder = new PatternLayoutEncoder();
         encoder.setContext(context);
         encoder.setPattern(this.getLoggerPattern());

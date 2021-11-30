@@ -28,6 +28,10 @@ public class BaseLoggerBuilder {
     private Integer maxFileSize;
 
     private Integer totalSizeCap;
+    /**
+     * 是否为本地环境
+     */
+    private Boolean isLocalEnv;
 
     private static final Integer DEFAULT_MAX_HISTORY = 7;
 
@@ -42,6 +46,11 @@ public class BaseLoggerBuilder {
 
     public BaseLoggerBuilder path(String path) {
         this.path = path;
+        return this;
+    }
+
+    public BaseLoggerBuilder isLocalEnv(boolean isLocalEnv) {
+        this.isLocalEnv = isLocalEnv;
         return this;
     }
 
@@ -98,6 +107,12 @@ public class BaseLoggerBuilder {
         return this.level;
     }
 
+    public Boolean isLocalEnv() {
+        if (Objects.isNull(this.isLocalEnv)) {
+            return false;
+        }
+        return this.isLocalEnv;
+    }
 
     public Integer getMaxHistoryWithDefault() {
         if (Objects.isNull(this.maxHistory)) {
