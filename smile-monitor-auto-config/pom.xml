@@ -7,11 +7,11 @@
     <parent>
         <groupId>com.el</groupId>
         <artifactId>smile-monitor-starter</artifactId>
-        <version>1.0.0-SMILE-BOOT</version>
+        <version>1.1.0-SMILE-BOOT</version>
     </parent>
 
     <artifactId>smile-monitor-auto-config</artifactId>
-    <version>1.0.0-SMILE-BOOT</version>
+    <version>1.1.0-SMILE-BOOT</version>
 
     <dependencies>
         <dependency>
@@ -54,8 +54,14 @@
 
         <dependency>
             <groupId>com.el</groupId>
-            <artifactId>smile-boot-logger</artifactId>
-            <version>1.0.0-SMILE-BOOT</version>
+            <artifactId>smile-monitor-base-logger</artifactId>
+            <version>1.1.0-SMILE-BOOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.el</groupId>
+            <artifactId>smile-monitor-prism</artifactId>
+            <version>1.1.0-SMILE-BOOT</version>
         </dependency>
     </dependencies>
 </project>
