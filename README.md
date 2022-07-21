@@ -30,11 +30,8 @@ EventLogger it also depends on this class to output the environment, so these tw
 public class EnvironmentTemplate {
 
     public static void main(String[] args){
-        // 是否是日常环境
         Environment.getInstance().isDaily();
-        // 是否是预发环境
         Environment.getInstance().isStaging();
-        // 是否是线上环境
         Environment.getInstance().isProd();
     }
 }
@@ -110,7 +107,7 @@ JSON:
     "appName":"trace-test",
     "costTime":4,
     "env":"STAGING",
-    "event":"测试",
+    "event":"test",
     "features":{
         "LOGGER_IS_SUCCESS":"true"
     },
