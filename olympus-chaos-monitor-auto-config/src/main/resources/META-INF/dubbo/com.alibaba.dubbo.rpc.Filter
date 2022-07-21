@@ -1,1 +1,1 @@
-BaseCloudRpcFilter=com.el.smile.interceptor.CloudRpcFilter
+BaseCloudRpcFilter=com.olympus.smile.interceptor.CloudRpcFilter

@@ -2,6 +2,7 @@ package com.el.smile.logger.logger;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
+import com.olympus.logger.logger.Slf4jTraceLoggerFactory;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.TimeUnit;
