@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.el</groupId>
-        <artifactId>smile-monitor-starter</artifactId>
+        <groupId>com.olympus</groupId>
+        <artifactId>olympus-chaos</artifactId>
         <version>1.1.0-SMILE-BOOT</version>
     </parent>
 
-    <artifactId>smile-monitor-auto-config</artifactId>
+    <artifactId>olympus-chaos-monitor-auto-config</artifactId>
     <version>1.1.0-SMILE-BOOT</version>
 
     <dependencies>
