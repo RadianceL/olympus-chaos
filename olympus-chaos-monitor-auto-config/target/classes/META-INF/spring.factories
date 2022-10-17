@@ -1,3 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.el.smile.config.BasicWebConfiguration,\
-  com.el.smile.config.SmileBootProperties
+  com.olympus.smile.config.BasicWebConfiguration,\
+  com.olympus.smile.config.SmileBootProperties

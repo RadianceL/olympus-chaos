@@ -1,7 +1,7 @@
 package com.olympus.smile.support.model;
 
-import com.el.smile.logger.event.model.EventLoggerContext;
-import com.el.smile.logger.event.model.LoggerType;
+import com.olympus.logger.event.model.EventLoggerContext;
+import com.olympus.logger.event.model.LoggerType;
 import lombok.Data;
 
 import java.util.HashMap;

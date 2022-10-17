@@ -1,10 +1,10 @@
 package com.olympus.smile.interceptor;
 
+import com.olympus.logger.utils.SmileLocalUtils;
+import com.olympus.logger.utils.TraceIdUtil;
 import com.olympus.smile.config.ApplicationConstants;
-import com.el.smile.logger.utils.SmileLocalUtils;
-import com.el.smile.logger.utils.TraceIdUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.NonNull;
-import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +21,7 @@ public class BaseTraceInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
         String tradeId = request.getHeader(ApplicationConstants.HEADER_TRACE_ID);
-        if (StringUtils.isEmpty(tradeId)) {
+        if (StringUtils.isBlank(tradeId)) {
             tradeId = TraceIdUtil.getTraceId();
         }
         SmileLocalUtils.setTraceId(tradeId);

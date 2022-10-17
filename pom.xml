@@ -7,7 +7,7 @@
 
     <groupId>com.olympus</groupId>
     <artifactId>olympus-chaos</artifactId>
-    <version>1.1.0-SMILE-BOOT</version>
+    <version>1.1.1</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -25,7 +25,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>2.7.1</version>
+                <version>2.7.3</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>

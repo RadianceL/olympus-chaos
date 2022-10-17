@@ -1,8 +1,8 @@
 package com.olympus.smile.config;
 
 import com.olympus.smile.entity.EnvironmentEnum;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
 import java.util.Objects;

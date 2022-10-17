@@ -2,13 +2,12 @@ package com.olympus.smile.config;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
+import com.olympus.logger.logger.Slf4jEventLoggerFactory;
+import com.olympus.logger.logger.Slf4jTraceLoggerFactory;
+import com.olympus.logger.logger.builder.LoggerType;
+import com.olympus.logger.utils.SpringStaticContextHolder;
 import com.olympus.smile.interceptor.BaseTraceInterceptor;
 import com.olympus.smile.interceptor.SpringCloudFeignInterceptor;
-import com.el.smile.logger.logger.Slf4jEventLoggerFactory;
-import com.el.smile.logger.logger.Slf4jTraceLoggerFactory;
-import com.el.smile.logger.logger.builder.LoggerType;
-import com.el.smile.logger.utils.SmileLocalUtils;
-import com.el.smile.logger.utils.SpringStaticContextHolder;
 import com.olympus.smile.support.EventProcess;
 import com.olympus.smile.support.logger.CostTimeLoggerHandler;
 import com.olympus.smile.support.logger.LoggerHandler;
@@ -46,7 +45,7 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
 
     /**
      * 基础拦截器 从http header中获取traceId
-     * 默认激活：从前端带入trace设置到 {@link SmileLocalUtils}
+     * 默认激活：从前端带入trace设置到 {@link com.olympus.logger.utils.SmileLocalUtils}
      * @param registry  添加拦截器
      */
     @Override
