@@ -35,9 +35,9 @@ public class BaseLoggerBuilder {
 
     private static final Integer DEFAULT_MAX_HISTORY = 7;
 
-    private static final Integer DEFAULT_MAX_FILE_SIZE = 300;
+    private static final Integer DEFAULT_MAX_FILE_SIZE = 100;
 
-    private static final Integer DEFAULT_TOTAL_SIZE_CAP = 2 * 1024;
+    private static final Integer DEFAULT_TOTAL_SIZE_CAP = 1024;
 
     public BaseLoggerBuilder name(String name) {
         this.name = name;

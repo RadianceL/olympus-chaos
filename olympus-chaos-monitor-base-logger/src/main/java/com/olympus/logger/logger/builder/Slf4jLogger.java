@@ -64,21 +64,21 @@ public class Slf4jLogger extends BaseLoggerBuilder {
 
         rollingAppender.setRollingPolicy(rollingPolicy);
         rollingAppender.start();
+        logger.addAppender(rollingAppender);
 
         // 异步Appender
-        AsyncAppender asyncAppender = new AsyncAppender();
-        asyncAppender.setContext(context);
-        asyncAppender.setName(this.getLoggerName());
-
-        asyncAppender.setQueueSize(512);
-        asyncAppender.setDiscardingThreshold(0);
-
-        asyncAppender.addAppender(rollingAppender);
-        asyncAppender.start();
+//        AsyncAppender asyncAppender = new AsyncAppender();
+//        asyncAppender.setContext(context);
+//        asyncAppender.setName(this.getLoggerName());
+//
+//        asyncAppender.setQueueSize(512);
+//        asyncAppender.setDiscardingThreshold(0);
+//
+//        asyncAppender.addAppender(rollingAppender);
+//        asyncAppender.start();
+//        logger.addAppender(asyncAppender);
 
         logger.setLevel(this.getLoggerLevel());
-        logger.addAppender(asyncAppender);
-
         return logger;
     }
 
