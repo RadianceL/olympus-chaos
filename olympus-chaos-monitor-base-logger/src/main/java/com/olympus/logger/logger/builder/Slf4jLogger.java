@@ -31,8 +31,7 @@ public class Slf4jLogger extends BaseLoggerBuilder {
 
     @Override
     public Logger build(LoggerType loggerType) {
-        String logFile = buildLogPath(loggerType);
-
+//        String logFile = buildLogPath(loggerType);
         LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
         Logger logger = (Logger) LoggerFactory.getLogger(this.getLoggerName());
         // 本地环境不输出文件
@@ -44,41 +43,42 @@ public class Slf4jLogger extends BaseLoggerBuilder {
         encoder.setPattern(this.getLoggerPattern());
         encoder.setCharset(StandardCharsets.UTF_8);
         encoder.start();
-
-        // rollingAppender
-        RollingFileAppender<ILoggingEvent> rollingAppender = new RollingFileAppender<>();
-        rollingAppender.setContext(context);
-        rollingAppender.setEncoder(encoder);
-        String logFilePath = logFile + File.separator + loggerType.name().toLowerCase() + ".log";
-        rollingAppender.setFile(logFilePath);
-
-        // 滚动策略
-        SizeAndTimeBasedRollingPolicy<?> rollingPolicy = new SizeAndTimeBasedRollingPolicy<>();
-        rollingPolicy.setContext(context);
-        rollingPolicy.setFileNamePattern(logFile + File.separator + loggerType.name().toLowerCase() + File.separator + "history" + ROLLING_PATTERN + ".log");
-        rollingPolicy.setMaxHistory(this.getMaxHistoryWithDefault());
-        rollingPolicy.setMaxFileSize(FileSize.valueOf(this.getMaxFileSizeWithDefault() + "mb"));
-        rollingPolicy.setTotalSizeCap(FileSize.valueOf(this.getTotalSizeCapWithDefault() + "mb"));
-        rollingPolicy.setParent(rollingAppender);
-        rollingPolicy.start();
-
-        rollingAppender.setRollingPolicy(rollingPolicy);
-        rollingAppender.start();
-        logger.addAppender(rollingAppender);
+//
+//        // rollingAppender
+//        RollingFileAppender<ILoggingEvent> rollingAppender = new RollingFileAppender<>();
+//        rollingAppender.setContext(context);
+//        rollingAppender.setEncoder(encoder);
+//        String logFilePath = logFile + File.separator + loggerType.name().toLowerCase() + ".log";
+//        rollingAppender.setFile(logFilePath);
+//
+//        // 滚动策略
+//        SizeAndTimeBasedRollingPolicy<?> rollingPolicy = new SizeAndTimeBasedRollingPolicy<>();
+//        rollingPolicy.setContext(context);
+//        rollingPolicy.setFileNamePattern(logFile + File.separator + loggerType.name().toLowerCase() + File.separator + "history" + ROLLING_PATTERN + ".log");
+//        rollingPolicy.setMaxHistory(this.getMaxHistoryWithDefault());
+//        rollingPolicy.setMaxFileSize(FileSize.valueOf(this.getMaxFileSizeWithDefault() + "mb"));
+//        rollingPolicy.setTotalSizeCap(FileSize.valueOf(this.getTotalSizeCapWithDefault() + "mb"));
+//        rollingPolicy.setParent(rollingAppender);
+//        rollingPolicy.start();
+//
+//        rollingAppender.setRollingPolicy(rollingPolicy);
+//        rollingAppender.start();
 
         // 异步Appender
-//        AsyncAppender asyncAppender = new AsyncAppender();
-//        asyncAppender.setContext(context);
-//        asyncAppender.setName(this.getLoggerName());
-//
-//        asyncAppender.setQueueSize(512);
-//        asyncAppender.setDiscardingThreshold(0);
-//
+        AsyncAppender asyncAppender = new AsyncAppender();
+        asyncAppender.setContext(context);
+        asyncAppender.setName(this.getLoggerName());
+
+        asyncAppender.setQueueSize(256);
+        asyncAppender.setDiscardingThreshold(0);
+        asyncAppender.setIncludeCallerData(true);
+
 //        asyncAppender.addAppender(rollingAppender);
-//        asyncAppender.start();
-//        logger.addAppender(asyncAppender);
+        asyncAppender.start();
 
         logger.setLevel(this.getLoggerLevel());
+        logger.addAppender(asyncAppender);
+
         return logger;
     }
 

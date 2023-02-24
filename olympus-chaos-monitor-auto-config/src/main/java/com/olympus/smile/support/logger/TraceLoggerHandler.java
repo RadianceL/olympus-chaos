@@ -94,7 +94,11 @@ public class TraceLoggerHandler implements EventHandler {
         if (annotation.response()) {
             Object resultObj = eventContext.getResultObj();
             if (Objects.nonNull(resultObj)) {
-                loggerContext.setResult(JSON.toJSONString(resultObj));
+                String response = resultObj.toString();
+                if (response.length() >= 1024) {
+                    response = response.substring(0, 1024);
+                }
+                loggerContext.setResult(response);
             }else {
                 loggerContext.setResult("null");
             }
