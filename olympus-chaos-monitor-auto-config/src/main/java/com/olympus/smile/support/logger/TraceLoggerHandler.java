@@ -1,6 +1,5 @@
 package com.olympus.smile.support.logger;
 
-import com.alibaba.fastjson.JSON;
 import com.olympus.logger.event.annotation.EventTrace;
 import com.olympus.logger.event.model.EventLoggerContext;
 import com.olympus.logger.utils.PublicIpUtil;
@@ -75,8 +74,7 @@ public class TraceLoggerHandler implements EventHandler {
                     }
                     return !(e instanceof HttpServletRequest);
                 }).collect(Collectors.toList());
-                String parameters = JSON.toJSONString(objects);
-                loggerContext.setParameter(parameters);
+                loggerContext.setParameter(objects.toString());
             } else {
                 loggerContext.setParameter("without parameter");
             }
@@ -95,8 +93,8 @@ public class TraceLoggerHandler implements EventHandler {
             Object resultObj = eventContext.getResultObj();
             if (Objects.nonNull(resultObj)) {
                 String response = resultObj.toString();
-                if (response.length() >= 1024) {
-                    response = response.substring(0, 1024);
+                if (response.length() > 1536) {
+                    response = response.substring(0, 1536);
                 }
                 loggerContext.setResult(response);
             }else {
