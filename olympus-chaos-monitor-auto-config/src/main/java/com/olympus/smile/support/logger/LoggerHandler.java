@@ -47,7 +47,8 @@ public class LoggerHandler implements EventHandler {
     }
 
     @Override
-    public void preInvoke(EventContext eventContext, ProceedingJoinPoint point) { }
+    public void preInvoke(EventContext eventContext, ProceedingJoinPoint point) {
+    }
 
     @Override
     public void postInvoke(EventContext eventContext, ProceedingJoinPoint point) {
@@ -82,5 +83,4 @@ public class LoggerHandler implements EventHandler {
     public void init() {
         ProcessHandlerManagement.registerEventHandler(this);
     }
-
 }

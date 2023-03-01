@@ -42,7 +42,8 @@ public class EventContext {
      */
     private Map<String, Object> features;
 
-    private EventContext() {}
+    private EventContext() {
+    }
 
     public EventContext(String eventName) {
         this.eventName = eventName;

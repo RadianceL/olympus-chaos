@@ -36,7 +36,7 @@ import java.io.File;
 @Slf4j
 @Configuration
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class BasicWebConfiguration implements WebMvcConfigurer{
+public class BasicWebConfiguration implements WebMvcConfigurer {
 
     @Value("${spring.application.name}")
     private String applicationName;
@@ -46,7 +46,8 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
     /**
      * 基础拦截器 从http header中获取traceId
      * 默认激活：从前端带入trace设置到 {@link com.olympus.logger.utils.SmileLocalUtils}
-     * @param registry  添加拦截器
+     *
+     * @param registry 添加拦截器
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -56,7 +57,8 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
     /**
      * 应用环境
      * 默认激活 「spring.profiles.active， spring.application.name」
-     * @return  {@link com.olympus.smile.config.Environment 激活后获取Environment实例}
+     *
+     * @return {@link com.olympus.smile.config.Environment 激活后获取Environment实例}
      */
     @Bean
     public ApplicationEnvironmentRunner application() {
@@ -88,12 +90,13 @@ public class BasicWebConfiguration implements WebMvcConfigurer{
     /**
      * SpringCloudFeignInterceptor拦截器配置
      * 注入条件： web应用 引入openFeign依赖
+     *
      * @return {@link SpringCloudFeignInterceptor spring feign header拦截器配置}
      */
     @Bean
     @ConditionalOnWebApplication
     @ConditionalOnClass(RequestInterceptor.class)
-    public SpringCloudFeignInterceptor springCloudFeignInterceptor(){
+    public SpringCloudFeignInterceptor springCloudFeignInterceptor() {
         return new SpringCloudFeignInterceptor();
     }
 

@@ -52,7 +52,7 @@ public class TraceLoggerHandler implements EventHandler {
 
         if (smileBootProperties.getPublicIpIfPresent()) {
             loggerContext.setIp(PublicIpUtil.getPublicIpAddress());
-        }else {
+        } else {
             loggerContext.setIp(PublicIpUtil.getLocalIpAddress());
         }
         loggerContext.setEvent(annotation.event());
@@ -97,10 +97,10 @@ public class TraceLoggerHandler implements EventHandler {
                     response = response.substring(0, 1536);
                 }
                 loggerContext.setResult(response);
-            }else {
+            } else {
                 loggerContext.setResult("null");
             }
-        }else {
+        } else {
             loggerContext.setResult("un-trace");
         }
     }

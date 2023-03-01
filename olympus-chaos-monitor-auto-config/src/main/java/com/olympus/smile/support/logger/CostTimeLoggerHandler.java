@@ -42,5 +42,4 @@ public class CostTimeLoggerHandler implements EventHandler {
     public void init() {
         ProcessHandlerManagement.registerEventHandler(this);
     }
-
 }
