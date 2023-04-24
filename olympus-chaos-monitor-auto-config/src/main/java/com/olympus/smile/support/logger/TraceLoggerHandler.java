@@ -19,10 +19,13 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 花费时间统计处理器
@@ -96,16 +99,21 @@ public class TraceLoggerHandler implements EventHandler {
         if (annotation.response()) {
             Object resultObj = eventContext.getResultObj();
             if (Objects.nonNull(resultObj)) {
-                String response = resultObj.toString();
-                if (response.length() > 1536) {
-                    response = response.substring(0, 1536);
+                String response;
+                if (resultObj instanceof HttpServletResponse || (resultObj instanceof HttpServletRequest)
+                        || resultObj instanceof MultipartFile || resultObj instanceof InputStream
+                        || resultObj instanceof OutputStream) {
+                    response = "unsupported type";
+                }else {
+                    response = resultObj.toString();
+                    if (response.length() > 2048) {
+                        response = response.substring(0, 2048);
+                    }
                 }
                 loggerContext.setResult(response);
             } else {
-                loggerContext.setResult("null");
+                loggerContext.setResult("un-trace");
             }
-        } else {
-            loggerContext.setResult("un-trace");
         }
     }
 
