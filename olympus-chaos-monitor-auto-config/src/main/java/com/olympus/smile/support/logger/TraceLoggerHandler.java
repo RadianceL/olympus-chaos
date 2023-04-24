@@ -14,6 +14,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -70,6 +71,9 @@ public class TraceLoggerHandler implements EventHandler {
                 List<Object> objects = Arrays.asList(args);
                 objects = objects.stream().filter(e -> {
                     if (e instanceof HttpServletResponse) {
+                        return false;
+                    }
+                    if (e instanceof MultipartFile) {
                         return false;
                     }
                     return !(e instanceof HttpServletRequest);
