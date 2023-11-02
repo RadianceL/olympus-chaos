@@ -3,12 +3,12 @@ package com.olympus.smile.interceptor;
 import com.olympus.logger.utils.SmileLocalUtils;
 import com.olympus.logger.utils.TraceIdUtil;
 import com.olympus.smile.config.ApplicationConstants;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * 基础拦截器

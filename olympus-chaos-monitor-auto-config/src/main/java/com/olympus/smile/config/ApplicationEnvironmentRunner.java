@@ -1,10 +1,10 @@
 package com.olympus.smile.config;
 
 import com.olympus.smile.entity.EnvironmentEnum;
+import jakarta.annotation.PostConstruct;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 
-import javax.annotation.PostConstruct;
 import java.util.Objects;
 
 /**

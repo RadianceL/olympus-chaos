@@ -48,6 +48,21 @@ public class SmileEventLogger {
 
     /**
      * 打印异常信息 - 打印至配置路径
+     * @param info       logger的自定义日志模板
+     * @param throwable  自定义模板的参数
+     */
+    public static void error(String info, Throwable throwable) {
+        String message = fillCallClassInfo();
+        info = message.concat(info);
+        if (Objects.nonNull(eventLogger)) {
+            eventLogger.error(info, throwable);
+            return;
+        }
+        log.error("！！！local logger printf！！！： " + info, throwable);
+    }
+
+    /**
+     * 打印异常信息 - 打印至配置路径
      * @param info  logger的自定义日志模板
      * @param args  自定义模板的参数
      */

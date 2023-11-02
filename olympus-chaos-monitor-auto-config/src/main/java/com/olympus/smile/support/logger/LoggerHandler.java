@@ -7,13 +7,13 @@ import com.olympus.smile.config.Environment;
 import com.olympus.smile.support.handler.EventHandler;
 import com.olympus.smile.support.management.ProcessHandlerManagement;
 import com.olympus.smile.support.model.EventContext;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.Objects;
 
 /**

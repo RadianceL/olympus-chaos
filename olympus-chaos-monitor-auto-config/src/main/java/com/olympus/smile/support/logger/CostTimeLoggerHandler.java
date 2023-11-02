@@ -4,10 +4,10 @@ import com.olympus.smile.support.handler.EventHandler;
 import com.olympus.smile.support.logger.config.LoggerFeaturesConstants;
 import com.olympus.smile.support.management.ProcessHandlerManagement;
 import com.olympus.smile.support.model.EventContext;
+import jakarta.annotation.PostConstruct;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.Objects;
 
 /**
