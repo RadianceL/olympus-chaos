@@ -21,8 +21,6 @@ public class SmileLocalUtils {
 
     private static final ThreadLocal<Object> USER_INFO = new ThreadLocal<>();
 
-    private static Object userData;
-
     public static <T> void setCurrentUser(T userData) {
         USER_INFO.set(userData);
     }

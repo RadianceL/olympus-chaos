@@ -1,6 +1,5 @@
 package com.olympus.smile.interceptor;
 
-import com.alibaba.dubbo.common.Constants;
 import com.olympus.logger.utils.SmileLocalUtils;
 import com.olympus.logger.utils.TraceIdUtil;
 import com.olympus.smile.config.ApplicationConstants;
