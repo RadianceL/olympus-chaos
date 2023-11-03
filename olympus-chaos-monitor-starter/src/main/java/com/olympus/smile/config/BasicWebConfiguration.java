@@ -6,7 +6,7 @@ import com.olympus.logger.logger.Slf4jEventLoggerFactory;
 import com.olympus.logger.logger.Slf4jTraceLoggerFactory;
 import com.olympus.logger.logger.builder.LoggerType;
 import com.olympus.logger.utils.SpringStaticContextHolder;
-import com.olympus.smile.interceptor.BaseTraceInterceptor;
+import com.olympus.smile.interceptor.ApplicationTraceInterceptor;
 import com.olympus.smile.interceptor.SpringCloudFeignInterceptor;
 import com.olympus.smile.support.EventProcess;
 import com.olympus.smile.support.logger.CostTimeLoggerHandler;
@@ -51,7 +51,7 @@ public class BasicWebConfiguration implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new BaseTraceInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(new ApplicationTraceInterceptor()).addPathPatterns("/**");
     }
 
     /**

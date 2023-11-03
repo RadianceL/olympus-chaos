@@ -1,5 +1,6 @@
 package com.olympus.logger.utils;
 
+import lombok.Getter;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -17,6 +18,11 @@ import java.util.Objects;
 @Component
 public class SpringStaticContextHolder implements ApplicationContextAware {
 
+    /**
+     * -- GETTER --
+     *  获取applicationContext
+     */
+    @Getter
     private static ApplicationContext applicationContext;
 
     @Override
@@ -24,13 +30,6 @@ public class SpringStaticContextHolder implements ApplicationContextAware {
         if (SpringStaticContextHolder.applicationContext == null) {
             SpringStaticContextHolder.applicationContext = applicationContext;
         }
-    }
-
-    /**
-     * 获取applicationContext
-     */
-    public static ApplicationContext getApplicationContext() {
-        return applicationContext;
     }
 
     /**
@@ -52,6 +51,4 @@ public class SpringStaticContextHolder implements ApplicationContextAware {
         }
         return getApplicationContext().getBean(className, clazz);
     }
-
-
 }

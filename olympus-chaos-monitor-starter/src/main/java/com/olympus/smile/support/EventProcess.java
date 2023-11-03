@@ -3,7 +3,7 @@ package com.olympus.smile.support;
 import com.alibaba.fastjson.JSON;
 import com.olympus.logger.event.annotation.EventTrace;
 import com.olympus.logger.event.model.EventLoggerContext;
-import com.olympus.logger.utils.PublicIpUtil;
+import com.olympus.logger.utils.LocalIpUtil;
 import com.olympus.logger.utils.SmileLocalUtils;
 import com.olympus.smile.config.Environment;
 import com.olympus.smile.config.SmileBootProperties;
@@ -88,11 +88,7 @@ public class EventProcess {
         loggerContext.setEvent(annotation.event());
         loggerContext.setEnv(Environment.getInstance().getEnvironment());
 
-        if (smileBootProperties.getPublicIpIfPresent()) {
-            loggerContext.setIp(PublicIpUtil.getPublicIpAddress());
-        }else {
-            loggerContext.setIp(PublicIpUtil.getLocalIpAddress());
-        }
+        loggerContext.setIp(LocalIpUtil.getLocalIpAddress());
 
         String methodClassName = point.getSignature().getDeclaringTypeName();
         String methodDeclaringName = point.getSignature().getName();

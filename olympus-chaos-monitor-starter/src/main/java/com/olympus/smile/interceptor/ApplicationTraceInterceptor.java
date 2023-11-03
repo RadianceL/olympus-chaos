@@ -16,7 +16,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
  *
  * @author eddie
  */
-public class BaseTraceInterceptor implements HandlerInterceptor {
+public class ApplicationTraceInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {

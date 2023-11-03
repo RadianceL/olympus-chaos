@@ -2,7 +2,7 @@ package com.olympus.smile.support.logger;
 
 import com.olympus.logger.event.annotation.EventTrace;
 import com.olympus.logger.event.model.EventLoggerContext;
-import com.olympus.logger.utils.PublicIpUtil;
+import com.olympus.logger.utils.LocalIpUtil;
 import com.olympus.logger.utils.SmileLocalUtils;
 import com.olympus.smile.config.Environment;
 import com.olympus.smile.config.SmileBootProperties;
@@ -24,8 +24,6 @@ import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * 花费时间统计处理器
@@ -54,11 +52,7 @@ public class TraceLoggerHandler implements EventHandler {
         loggerContext.setAppName(Environment.getInstance().getAppName());
         loggerContext.setEnv(Environment.getInstance().getEnvironment());
 
-        if (smileBootProperties.getPublicIpIfPresent()) {
-            loggerContext.setIp(PublicIpUtil.getPublicIpAddress());
-        } else {
-            loggerContext.setIp(PublicIpUtil.getLocalIpAddress());
-        }
+        loggerContext.setIp(LocalIpUtil.getLocalIpAddress());
         loggerContext.setEvent(annotation.event());
 
         String methodClassName = point.getSignature().getDeclaringTypeName();
@@ -80,7 +74,7 @@ public class TraceLoggerHandler implements EventHandler {
                         return false;
                     }
                     return !(e instanceof HttpServletRequest);
-                }).collect(Collectors.toList());
+                }).toList();
                 loggerContext.setParameter(objects.toString());
             } else {
                 loggerContext.setParameter("without parameter");
