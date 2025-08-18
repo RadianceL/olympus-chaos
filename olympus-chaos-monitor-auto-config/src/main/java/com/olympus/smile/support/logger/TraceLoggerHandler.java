@@ -25,7 +25,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * 花费时间统计处理器
@@ -106,9 +105,6 @@ public class TraceLoggerHandler implements EventHandler {
                     response = "unsupported type";
                 }else {
                     response = resultObj.toString();
-                    if (response.length() > 2048) {
-                        response = response.substring(0, 2048);
-                    }
                 }
                 loggerContext.setResult(response);
             } else {
