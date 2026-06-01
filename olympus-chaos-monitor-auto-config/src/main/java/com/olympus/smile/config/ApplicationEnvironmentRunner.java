@@ -15,7 +15,7 @@ import java.util.Objects;
  */
 public class ApplicationEnvironmentRunner {
 
-    @Value("${spring.profiles.active}")
+    @Value("${spring.environment.active}")
     private String activeEnv;
 
     @Value("${spring.application.name}")
