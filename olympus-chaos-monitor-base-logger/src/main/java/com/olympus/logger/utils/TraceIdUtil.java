@@ -1,5 +1,7 @@
 package com.olympus.logger.utils;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
@@ -18,6 +20,16 @@ public class TraceIdUtil {
         LocalDateTime localDateTime = LocalDateTime.now();
         String localDate = DATE_TIME_FORMATTER.format(localDateTime);
         return localDate.concat("-").concat(uuid);
+    }
+
+    public static String getTraceId(String customTag, String environment){
+        if (StringUtils.isBlank(customTag)) {
+            customTag = "default";
+        }
+        String uuid = UUID.randomUUID().toString().replace("-", "");
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String localDate = DATE_TIME_FORMATTER.format(localDateTime);
+        return localDate.concat("-").concat(customTag).concat("-").concat(environment).concat("-").concat(uuid);
     }
 
 }
